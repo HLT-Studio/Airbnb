@@ -3,7 +3,7 @@
     session_start();
     $amenitiesArr = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
 
-    //Admin insert place
+    //user insert place
     if(isset($_POST['insert'])){
         $host_id = $_SESSION['user_id'];
         $name = $_POST["name"];
@@ -26,7 +26,7 @@
         $amenities = $_POST["amenities"];
         $price = (int)$_POST["price"];
         $cleaning_fee = (int)$_POST["cleaning_fee"];
-        $calendar_updated = "";
+        $calendar_updated = date("d/m/Y");
         $number_of_reviews = 0;
         $review_scores_rating = 0;
         $approve = 0;
@@ -44,5 +44,24 @@
         $conn->exec($sqltest);
         header('Location: manage-home.php');
         exit();
+    }
+
+    //admin duyệt bài đăng của user
+    if(isset($_POST["approve"])){
+        try{
+            if(!isset($_POST['adminId'])){
+                throw new Exception("Only admin can approve user's post !!!");
+            }
+            else{
+                $placeid = $_POST['placeId'];
+                $sqlApprove = "UPDATE `place` SET `approve` = '1' WHERE `place`.`id` = $placeid";
+                $conn->exec($sqlApprove);
+                header('Location: admin_index.php');
+            }
+        }
+        catch(Exception $e){
+            $_SESSION['errorRole'] = $e->getMessage();
+            header('Location: login.php');
+        }
     }
 ?>

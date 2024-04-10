@@ -38,6 +38,22 @@
                 </div>
 
                 <div class="d-flex flex-row align-items-center mb-4">
+                  <i class="fas fa-user fa-lg me-3 mb-4 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0">
+                    <input type="text" id="username" name="username" class="form-control" required>
+                    <label class="form-label" for="username">User name</label>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-row align-items-center mb-4">
+                <i class="fa fa-phone fa-lg me-3 mb-4 fa-fw"></i>
+                  <div class="form-outline flex-fill mb-0">
+                    <input type="number" id="phone" name="phone" class="form-control" minlength="10" maxlength="10" required>
+                    <label class="form-label" for="phone">Phone number</label>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-row align-items-center mb-4">
                   <i class="fas fa-envelope fa-lg me-3 mb-4 fa-fw"></i>
                   <div class="form-outline flex-fill mb-0">
                     <input type="email" id="email_value" name="email_value" class="form-control" required>

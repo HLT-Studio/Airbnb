@@ -1,6 +1,5 @@
 <?php
   session_start();
-  include 'firebaseConfig.php';
   include_once("DBconnect.php");
 
 
@@ -8,26 +7,47 @@
   if(isset($_POST['register_btn']))
   {
     $fullname = $_POST['full_name_value'];
+    $username = $_POST['username'];
     $email = $_POST['email_value'];
     $password = $_POST['password_value'];
+    $phone = $_POST['phone'];
 
     //Tạo tài khoản
     try {
-      $userProperties = [
-        'email' => $email,
-        'emailVerified' => false,
-        'password' => $password,
-        'displayName' => $fullname,
-      ];
+      $flag = true;
+      $getAcc = "SELECT * FROM user";
+      $lstuser = $conn->query($getAcc);
+      foreach($lstuser as $us){
+        if($us['username'] == $username && $us['email'] == $email){
+          $flag = false;
+        }
+      }
 
-      $createdUser = $auth->createUser($userProperties);
+      if($flag == true){
+        $registerSQL = "INSERT INTO `user` (`id`, `username`, `password`, `name`, `phone`, `email`, `roleid`) VALUES (NULL, '$username', '$password', '$fullname', '$phone', '$email', '2')";
+        $conn->exec($registerSQL);
+        $_SESSION['status'] = "Sign Up Success";
+        $_SESSION['alert'] = "alert-success";
+        $usid = 0;
+        $sql = "SELECT * FROM user";
+        $users = $conn->query($sql);
+        foreach($users as $ustemp){
+          if($ustemp['email'] == $email){
+            $usid = $ustemp['id'];
+          }
+        }
 
-      $_SESSION['status'] = "Sign Up Success";
-      $_SESSION['alert'] = "alert-success";
-      header('Location: register.php');
-      exit();
+        $_SESSION['user_id'] = $usid;
+
+        header('Location: index.php');
+        exit();
+      }
+      else{
+        throw new Exception("Email or Account existed !!!");
+      }
+      
       //Xử lý ngoại lệ nếu tài khoản đã được tạo rồi (trùng email)
-    } catch (\Kreait\Firebase\Exception\Auth\EmailExists $e)
+    } catch (Exception $e)
     {
       $_SESSION['status'] = "This account already exists";
       $_SESSION['alert'] = "alert-danger";
@@ -52,6 +72,11 @@
 
         foreach ($users as $user) {
           if ($user['username'] == $username && $user['password'] == $password) {
+            if($username == "admin"){
+              $_SESSION['user_id'] = $user['id'];
+              header('Location: admin_index.php');
+              exit();
+            }
             $_SESSION['user_id'] = $user['id'];
 
             header('Location: index.php');
@@ -91,4 +116,5 @@
     }
 
   }
+
 ?>

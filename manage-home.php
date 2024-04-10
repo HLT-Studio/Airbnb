@@ -5,7 +5,10 @@ include_once("pagination.php");
 $id = (int)$_SESSION['user_id'];
 $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
 $result = "SELECT * FROM `place` WHERE `host_id` = $id ORDER BY `id` ASC LIMIT $position, $display;";
-$index = $_GET['page'];
+$index = 1;
+if(isset($_GET['page'])){
+  $index = $_GET['page'];
+}
 $next = ($index + 1) > $total_pages ? $total_pages : ($index + 1);
 $previous = ($index - 1) < 1 ? 1 : ($index - 1);
 ?>
