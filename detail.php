@@ -1,25 +1,42 @@
 <?php
 session_start();
-$obid = htmlspecialchars($_GET["id"]);
-$url = "https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/airbnb-listings/records?select=*&where=id%3D$obid&limit=1";
-$json = file_get_contents($url);
-$data = json_decode($json);
-$objc = $data->results;
-
-$rating = $objc[0]->review_scores_rating;
-$star = (double)(($rating * 5) / 100);
-
-$date=date_create($objc[0]->host_since);
-$date_formated = date_format($date, "d/m/Y");
-$amenities = $objc[0]->amenities;
-$today=date("Y-m-d");
+include_once("DBconnect.php");
+$id = $_GET['id'];
+$sql = "SELECT * FROM `place` WHERE `id` = $id;";
+foreach ($conn->query($sql) as $home) {
+  $xl_picture_url = $home['xl_picture_url'];
+  $name = $home['name'];
+  $property_type = $home['property_type'];
+  $description = $home['description'];
+  $notes = $home['description'];
+  $summary = $home['summary'];
+  $latitude = $home['latitude'];
+  $longitude = $home['longitude'];
+  $street = $home['street'];
+  $city = $home['city'];
+  $state = $home['state'];
+  $country = $home['country'];
+  $amenities = $home['amenities'];
+  $accommodates = $home['accommodates'];
+  $bedrooms = $home['bedrooms'];
+  $beds = $home['beds'];
+  $bathrooms = $home['bathrooms'];
+  $host_id = $home['host_id'];
+  $price = $home['price'];
+  $cleaning_fee = $home['cleaning_fee'];
+  $amenitiesArr = explode(', ', $amenities);
+}
+$host_query = "SELECT * FROM `user` WHERE `id` = $host_id;";
+foreach ($conn->query($host_query) as $user) {
+  $host_name = $user['name'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $objc[0]->name ?></title>
+    <title><?= $name ?></title>
     <link rel="icon" type="image/svg+xml" sizes="any" href="Assets/airbnb-1.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -62,7 +79,7 @@ $today=date("Y-m-d");
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-11">
-          <h3><?= $objc[0]->name ?></h3>
+          <h3><?= $name ?></h3>
         </div>
         <div class="col-12 col-md-1 text-center text-md-end">
           <a class="icon-link icon-link-hover link-dark" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" href="#">
@@ -75,29 +92,29 @@ $today=date("Y-m-d");
       </div>
       <div class="row g-sm-2 g-md-2">
         <div class="col-12 col-md-6">
-          <img src="<?= $objc[0]->xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="img-fluid">
+          <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
         </div>
         <div class="col-0 col-md-6">
           <div class="row row-cols-1 row-cols-md-2 g-sm-2 g-md-2">
             <div class="col">
-              <img src="<?= $objc[0]->xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="img-fluid">
+              <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
             </div>
             <div class="col">
-              <img src="<?= $objc[0]->xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="img-fluid">
+              <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
             </div>
             <div class="col">
-              <img src="<?= $objc[0]->xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="img-fluid">
+              <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
             </div>
             <div class="col">
-              <img src="<?= $objc[0]->xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="img-fluid">
+              <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
             </div>
           </div>
         </div>
       </div>
       <div class="row mt-2">
         <div class="col-12 col-md-7">
-          <h4>Entire&nbsp;<?= $objc[0]->property_type ?>&nbsp;in&nbsp;<?= $objc[0]->street ?></h4>
-          <p class="fw-light"><?= $objc[0]->accommodates ?>&nbsp;guests&nbsp;&#8226;&nbsp;<?= $objc[0]->bedrooms ?>&nbsp;bedrooms&nbsp;&#8226;&nbsp;<?= $objc[0]->beds ?>&nbsp;beds&nbsp;&#8226;&nbsp;<?= $objc[0]->bathrooms ?>&nbsp;baths</p>
+          <h4>Entire&nbsp;<?= $property_type ?>&nbsp;in&nbsp;<?= $street ?></h4>
+          <p class="fw-light"><?= $accommodates ?>&nbsp;guests&nbsp;&#8226;&nbsp;<?= $bedrooms ?>&nbsp;bedrooms&nbsp;&#8226;&nbsp;<?= $beds ?>&nbsp;beds&nbsp;&#8226;&nbsp;<?= $bathrooms ?>&nbsp;baths</p>
           <p class="fw-bold">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 20 20">
               <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -109,12 +126,11 @@ $today=date("Y-m-d");
               <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='Assets/default-avt.png'" width="50" height="50" class="rounded-circle">
             </div>
             <div class="col-10 col-md-11">
-              <p class="fw-bold mb-0">Hosted&nbsp;by&nbsp;<?= $objc[0]->host_name ?></p>
-              <p class="text-secondary fw-light mb-0">Joined&nbsp;in&nbsp;<?= $date_formated ?></p>
+              <p class="fw-bold mb-0">Hosted&nbsp;by&nbsp;<?= $host_name ?></p>
             </div>
           </div>
           <hr style="border: 1px solid grey"/>
-          <p class="fw-light text-break"><?= $objc[0]->summary ?>...</p>
+          <p class="fw-light text-break"><?= $summary ?>...</p>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header">
@@ -125,11 +141,7 @@ $today=date("Y-m-d");
               <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                 <div class="accordion-body">
                   <h3 class="fw-bold">About this space</h3>
-                  <p class="fw-light text-break"><?= $objc[0]->description ?></p>
-                  <p class="fw-bold">The space</p>
-                  <p class="fw-light text-break"><?= $objc[0]->space ?? 'nothing...' ?></p>
-                  <p class="fw-bold">Guest access</p>
-                  <p class="fw-light text-break"><?= $objc[0]->access ?? 'nothing...' ?></p>
+                  <p class="fw-light text-break"><?= $description ?></p>
                   <p class="fw-bold">Other things to note</p>
                   <p class="fw-light text-break"><?= $objc[0]->notes ?? 'nothing...' ?></p>
                 </div>
@@ -138,8 +150,8 @@ $today=date("Y-m-d");
           </div>
           <hr style="border: 1px solid grey"/>
           <h4>What this place offers</h4>
-          <?php for ($i=0; $i < sizeof($amenities) ; $i++) { ?>
-            <p class="fw-light"><img src="Assets/<?= $amenities[$i] ?>.svg" width="25" height="25">&nbsp;&nbsp;&nbsp;&nbsp;<?= $amenities[$i] ?></p>
+          <?php for ($i=0; $i < sizeof($amenitiesArr) ; $i++) { ?>
+            <p class="fw-light"><img src="Assets/<?= $amenitiesArr[$i] ?>.svg" width="25" height="25">&nbsp;&nbsp;&nbsp;&nbsp;<?= $amenitiesArr[$i] ?></p>
           <?php } ?>
         </div>
         <div class="col-md-1">
@@ -147,7 +159,7 @@ $today=date("Y-m-d");
         <div class="col-12 col-md-4">
           <div class="card shadow mb-5 px-2 bg-white rounded" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">$<?= $objc[0]->price ?>&nbsp;<span class="fs-6 fw-light">night</span></h5>
+              <h5 class="card-title">$<?= $price ?>&nbsp;<span class="fs-6 fw-light">night</span></h5>
               <form action="" method="post">
                 <div class="row mb-2">
                   <div class="col-6 pe-1">
@@ -165,7 +177,7 @@ $today=date("Y-m-d");
                 </div>
                 <div class="form-floating">
                   <select class="form-select" id="numbGuest" aria-label="Floating label select example">
-                    <?php for ($i=1; $i <= $objc[0]->accommodates; $i++) {?>
+                    <?php for ($i=1; $i <= $accommodates; $i++) {?>
                       <option value="<?= $i ?>"><?= $i ?></option>
                     <?php } ?>
                   </select>
@@ -173,7 +185,7 @@ $today=date("Y-m-d");
                 </div>
                 <div class="row mt-2">
                   <div class="col-8">
-                    <p class="mt-2 fw-light text-decoration-underline">$<span id="price"><?= $objc[0]->price ?></span> x <span id="days"></span> <span id="night"></span></p>
+                    <p class="mt-2 fw-light text-decoration-underline">$<span id="price"><?= $price ?></span> x <span id="days"></span> <span id="night"></span></p>
                   </div>
                   <div class="col-1">
                   </div>
@@ -188,7 +200,7 @@ $today=date("Y-m-d");
                   <div class="col-1">
                   </div>
                   <div class="col-3 text-end">
-                    <p class="mt-2 fw-light">$<span id="cleaning_fee"><?= $objc[0]->cleaning_fee ?></span></p>
+                    <p class="mt-2 fw-light">$<span id="cleaning_fee"><?= $cleaning_fee ?></span></p>
                   </div>
                 </div>
                 <input type="submit" id="checkSubmit" name="submit" class="btn btn-danger fst-light py-2 mt-2" value="Reserve" style="width: 100%">
@@ -208,9 +220,9 @@ $today=date("Y-m-d");
       </div>
       <hr style="border: 1px solid grey"/>
       <h3>Where you’ll be</h3>
-      <iframe src="http://maps.google.com/maps?q=<?= $objc[0]->latitude ?>,<?= $objc[0]->longitude ?>&z=15&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <p class="fw-bold mt-1"><?= $objc[0]->state ?>,&nbsp;<?= $objc[0]->city ?>,&nbsp;<?= $objc[0]->country ?></p>
-      <p class="fw-light text-break"><?= $objc[0]->transit ?? 'nothing...' ?></p>
+      <iframe src="http://maps.google.com/maps?q=<?= $latitude ?>,<?= $longitude ?>&z=15&output=embed" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <p class="fw-bold mt-1"><?= $state ?>,&nbsp;<?= $city ?>,&nbsp;<?= $country ?></p>
+      <p class="fw-light text-break"><?= $transit ?? 'nothing...' ?></p>
     </div>
   </body>
 </html>

@@ -18,7 +18,7 @@
       $getAcc = "SELECT * FROM user";
       $lstuser = $conn->query($getAcc);
       foreach($lstuser as $us){
-        if($us['username'] == $username && $us['email'] == $email){
+        if($us['username'] == $username || $us['email'] == $email){
           $flag = false;
         }
       }
@@ -45,7 +45,7 @@
       else{
         throw new Exception("Email or Account existed !!!");
       }
-      
+
       //Xử lý ngoại lệ nếu tài khoản đã được tạo rồi (trùng email)
     } catch (Exception $e)
     {

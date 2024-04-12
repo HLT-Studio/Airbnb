@@ -68,7 +68,7 @@ $lstplace = $conn->query($sql);
               <img src="<?= $place['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="rounded" width="300" height="300">
               <div class="row">
                 <div class="col-8">
-                  <p class="mt-2 fw-bold">None</p>
+                  <p class="mt-2 fw-bold"><?= $place['state'] . ", " . $place['country'] ?></p>
                 </div>
                 <div class="col-4 text-end">
                   <p class="mt-2 me-3 fw-light">

@@ -3,7 +3,8 @@ include_once("DBconnect.php");
 $id = $_GET['id'];
 $sql = "SELECT * FROM `place` WHERE `id` = $id;";
 foreach ($conn->query($sql) as $home ) {
-  $name = $home['name'];
+  $price = (int)$home["price"];
+  $cleaning_fee = (int)$home["cleaning_fee"];
 }
 ?>
 <!DOCTYPE html>
@@ -22,25 +23,28 @@ foreach ($conn->query($sql) as $home ) {
         <div class="col-12">
           <form action="placeController.php" method="post">
             <input type="hidden" name="place-id" value="<?= $id ?>">
-            <div class="row">
+            <div class="row gy-3">
               <div class="col-12 text-start">
-                <p class="fs-3 mb-0">Now, let's give your house a title</p>
-                <p class="fw-light">Short titles work best. Have fun with it—you can always change it later.</p>
+                <p class="fs-3 mb-0">Now, set your price</p>
+                <p class="fw-light">You can change it anytime.</p>
               </div>
-              <div class="col-12 text-start">
-                <textarea class="form-control" id="name" name="name" maxlength="32" style="height: 200px"><?= $name ?></textarea>
-                <p class="mt-2 fw-light" id="count-character-name">0/32</p>
-                <script type="text/javascript">
-                  document.getElementById('name').onkeyup = function () {
-                    document.getElementById('count-character-name').innerHTML = this.value.length + "/32";
-                  };
-                </script>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input class="form-control" type="number" min="1" name="price" id="price" placeholder="price" value="<?= $price ?>">
+                  <label for="price">Price</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating">
+                  <input class="form-control" type="number" min="1" name="cleaning_fee" id="cleaning_fee" placeholder="cleaning_fee" value="<?= $cleaning_fee ?>">
+                  <label for="cleaning_fee">Cleaning Fee</label>
+                </div>
               </div>
             </div>
             <hr style="border: 1px solid gray"/>
             <div class="row">
               <div class="col-12 text-end">
-                <input type="submit" class="btn btn-dark" name="save-title" value="Save" />
+                <input type="submit" class="btn btn-dark" name="save-price" value="Save" />
               </div>
             </div>
           </form>

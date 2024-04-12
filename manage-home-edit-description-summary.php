@@ -3,7 +3,9 @@ include_once("DBconnect.php");
 $id = $_GET['id'];
 $sql = "SELECT * FROM `place` WHERE `id` = $id;";
 foreach ($conn->query($sql) as $home ) {
-  $name = $home['name'];
+  $summary = $home["summary"];
+  $description = $home["description"];
+  $notes = $home["notes"];
 }
 ?>
 <!DOCTYPE html>
@@ -24,23 +26,44 @@ foreach ($conn->query($sql) as $home ) {
             <input type="hidden" name="place-id" value="<?= $id ?>">
             <div class="row">
               <div class="col-12 text-start">
-                <p class="fs-3 mb-0">Now, let's give your house a title</p>
-                <p class="fw-light">Short titles work best. Have fun with it—you can always change it later.</p>
+                <p class="fs-3 mb-0">Create your description</p>
+                <p class="fw-light">Share what makes your place special.</p>
               </div>
               <div class="col-12 text-start">
-                <textarea class="form-control" id="name" name="name" maxlength="32" style="height: 200px"><?= $name ?></textarea>
-                <p class="mt-2 fw-light" id="count-character-name">0/32</p>
-                <script type="text/javascript">
-                  document.getElementById('name').onkeyup = function () {
-                    document.getElementById('count-character-name').innerHTML = this.value.length + "/32";
+                <textarea class="form-control" id="description" name="description" maxlength="500" style="height: 300px"><?= $description ?></textarea>
+                <p class="mt-2 fw-light" id="count-character-desc">0/500</p>
+                <script>
+                  document.getElementById('description').onkeyup = function () {
+                    document.getElementById('count-character-desc').innerHTML = this.value.length + "/500";
                   };
                 </script>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12 text-start">
+                <p class="fs-3 mb-0">Create your Summary</p>
+                <p class="fw-light">Introduce your location as well as things to keep in mind for visitors.</p>
+              </div>
+              <div class="col-12 text-start">
+                <textarea class="form-control" id="summary" name="summary" maxlength="500" style="height: 300px"><?= $summary ?></textarea>
+                <p class="mt-2 fw-light" id="count-character-summary">0/500</p>
+                <script>
+                  document.getElementById('summary').onkeyup = function () {
+                    document.getElementById('count-character-summary').innerHTML = this.value.length + "/500";
+                  };
+                </script>
+              </div>
+              <div class="col-12 text-start mt-3">
+                <div class="form-floating">
+                  <input class="form-control" type="text" name="notes" id="notes" placeholder="notes" value="<?= $notes ?>">
+                  <label for="notes">Other notes</label>
+                </div>
               </div>
             </div>
             <hr style="border: 1px solid gray"/>
             <div class="row">
               <div class="col-12 text-end">
-                <input type="submit" class="btn btn-dark" name="save-title" value="Save" />
+                <input type="submit" class="btn btn-dark" name="save-info" value="Save" />
               </div>
             </div>
           </form>

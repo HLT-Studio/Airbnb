@@ -1,9 +1,7 @@
 <?php
 session_start();
-$url = 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/airbnb-listings/records?limit=100';
-$json = file_get_contents($url);
-$data = json_decode($json);
-$list = $data->results;
+include_once("DBconnect.php");
+$sql = "SELECT * FROM `place` WHERE `approve` = 1;";
 $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
 ?>
 <!DOCTYPE html>
@@ -177,25 +175,25 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
           </div>
         </div>
       </div>
-      <div class="mt-2 row row-cols-1 row-cols-md-4 g-sm-0 g-md-2">
-        <?php foreach ($list as $element): ?>
+      <div class="mt-2 row row-cols-1 row-cols-md-4 g-sm-0 g-md-5">
+        <?php foreach ($conn->query($sql) as $element): ?>
           <div class="col">
-            <a href="detail.php?id=<?= $element->id ?>" class="link-dark" style="text-decoration:none">
-              <img src="<?= $element->xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="rounded" width="300" height="300">
-              <div class="row">
+            <a href="detail.php?id=<?= $element['id'] ?>" class="link-dark" style="text-decoration:none">
+              <img src="<?= $element['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="rounded" width="100%" height="auto">
+              <div class="row mb-0">
                 <div class="col-8">
-                  <p class="mt-2 fw-bold"><?= $element->smart_location ?></p>
+                  <p class="mt-2 fw-bold mb-0"><?= $element['state'] . ", " . $element['country'] ?></p>
                 </div>
                 <div class="col-4 text-end">
-                  <p class="mt-2 me-3 fw-light">
+                  <p class="mt-2 fw-light mb-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 20 20">
                       <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                    </svg>&nbsp;<?= (double)(($element->review_scores_rating * 5) / 100) ?>
+                    </svg>&nbsp;5
                   </p>
                 </div>
               </div>
-              <p class="text-secondary">Added&nbsp;<?= $element->calendar_updated ?></p>
-              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= $element->price ?></span>&nbsp;night</p>
+              <p class="text-secondary mt-2">Added&nbsp;<?= $element['calendar_updated'] ?></p>
+              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= $element['price'] ?></span>&nbsp;night</p>
             </a>
           </div>
         <?php endforeach; ?>

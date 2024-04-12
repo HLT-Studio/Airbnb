@@ -4,7 +4,7 @@
     $amenitiesArr = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
 
     //user insert place
-    if(isset($_POST['insert'])){
+    if (isset($_POST['insert'])) {
         $host_id = $_SESSION['user_id'];
         $name = $_POST["name"];
         $summary = $_POST["summary"];
@@ -47,7 +47,7 @@
     }
 
     //admin duyệt bài đăng của user
-    if(isset($_POST["approve"])){
+    if (isset($_POST["approve"])) {
         try{
             if(!isset($_POST['adminId'])){
                 throw new Exception("Only admin can approve user's post !!!");
@@ -63,5 +63,134 @@
             $_SESSION['errorRole'] = $e->getMessage();
             header('Location: login.php');
         }
+    }
+
+    //user update name of place
+    if (isset($_POST["save-title"])) {
+      try {
+        $name = $_POST["name"];
+        $id = $_POST["place-id"];
+        $sql = "UPDATE `place` SET `name` = '$name' WHERE `place`.`id` = $id";
+        $conn->exec($sql);
+        header("Location: manage-home-edit-title.php?id=$id");
+        exit();
+      } catch (\Exception $e) {
+
+      }
+    }
+
+    //user update property type of place
+    if (isset($_POST["save-property-type"])) {
+      try {
+        $property_type = $_POST["property_type"];
+        $id = $_POST["place-id"];
+        $sql = "UPDATE `place` SET `property_type` = '$property_type' WHERE `place`.`id` = $id";
+        $conn->exec($sql);
+        header("Location: manage-home-edit-property-type.php?id=$id");
+        exit();
+      } catch (\Exception $e) {
+
+      }
+    }
+
+    //user update description & summary of place
+    if (isset($_POST["save-info"])){
+      try {
+        $summary = $_POST["summary"];
+        $description = $_POST["description"];
+        $notes = $_POST["notes"];
+        $id = $_POST["place-id"];
+        $sql = "UPDATE `place` SET `summary` = '$summary', `description` = '$description', `notes` = '$notes' WHERE `place`.`id` = $id";
+        $conn->exec($sql);
+        header("Location: manage-home-edit-description-summary.php?id=$id");
+        exit();
+      } catch (\Exception $e) {
+
+      }
+    }
+
+    //user update location of place
+    if (isset($_POST["save-location"])){
+      try {
+        $latitude = (double)$_POST['latitude'];
+        $longitude = (double)$_POST['longtitude'];
+        $street = $_POST['street'];
+        $city = $_POST['city'];
+        $state = $_POST['state'];
+        $country = $_POST['country'];
+        $transit = $_POST['transit'];
+        $id = $_POST["place-id"];
+        $sql = "UPDATE `place` SET `street` = '$street', `city` = '$city', `state` = '$state', `latitude` = '$latitude', `longitude` = '$longitude', `transit` = '$transit' WHERE `place`.`id` = $id";
+        $conn->exec($sql);
+        header("Location: manage-home-edit-location.php?id=$id");
+        exit();
+      } catch (\Exception $e) {
+
+      }
+    }
+
+    //user update amenities of place
+    if (isset($_POST["save-amenities"])) {
+      try {
+        $amenitiesString = "";
+        for($i = 0; $i < sizeof($amenitiesArr); $i++){
+            if(isset($_POST["ch".$i])){
+                $amenitiesString .= $_POST["ch".$i] . ", ";
+            }
+        }
+        $amenitiesString = rtrim($amenitiesString, ', ');
+        $id = $_POST["place-id"];
+        $sql = "UPDATE `place` SET `amenities` = '$amenitiesString' WHERE `place`.`id` = $id";
+        $conn->exec($sql);
+        header("Location: manage-home-edit-amenities.php?id=$id");
+        exit();
+      } catch (\Exception $e) {
+
+      }
+    }
+
+    //user update price of place
+    if (isset($_POST["save-price"])) {
+      try {
+        $price = (int)$_POST["price"];
+        $cleaning_fee = (int)$_POST["cleaning_fee"];
+        $id = $_POST["place-id"];
+        $sql = "UPDATE `place` SET `price` = '$price', `cleaning_fee` = '$cleaning_fee' WHERE `place`.`id` = $id";
+        $conn->exec($sql);
+        header("Location: manage-home-edit-price.php?id=$id");
+        exit();
+      } catch (\Exception $e) {
+
+      }
+    }
+
+    //user update beds, bathrooms, bedrooms in place
+    if (isset($_POST["save-beds"])) {
+      try {
+        $accommodates = (int)$_POST['accommodates'];
+        $bathrooms = (int)$_POST['bathrooms'];
+        $bedrooms = (int)$_POST['bedrooms'];
+        $beds = (int)$_POST['beds'];
+        $id = $_POST["place-id"];
+        $sql = "UPDATE `place` SET `accommodates` = '$accommodates', `bathrooms` = '$bathrooms', `bedrooms` = '$bedrooms', `beds` = '$beds' WHERE `place`.`id` = $id";
+        $conn->exec($sql);
+        header("Location: manage-home-edit-beds.php?id=$id");
+        exit();
+      } catch (\Exception $e) {
+
+      }
+    }
+
+    //user delete place
+    if (isset($_POST["delete-place"])) {
+      try {
+        $id = $_POST["place-id-delete"];
+        $sql = "DELETE FROM `place` WHERE `place`.`id` = $id";
+        $conn->exec($sql);
+        header("Location: manage-home.php");
+        exit();
+      } catch (\Exception $e) {
+
+      }
     }
 ?>
