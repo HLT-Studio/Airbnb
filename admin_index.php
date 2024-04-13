@@ -48,8 +48,6 @@ $lstplace = $conn->query($sql);
               <li><a class="dropdown-item fw-bold fw-light" href="wishlist.php">Wishlists</a></li>
               <li><a class="dropdown-item fw-bold fw-light" href="manage-home.php">Airbnb your home</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
-              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
             <?php else: ?>
               <li><a class="dropdown-item fw-bold fw-light" href="login.php">Sign in</a></li>

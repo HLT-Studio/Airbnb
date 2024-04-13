@@ -11,7 +11,7 @@ $users = $conn->query($sql);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Center</title>
-    <link rel="icon" type="image/svg+xml" sizes="any" href="Assets/airbnb-1.svg">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="assets/airbnb-1.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -35,9 +35,7 @@ $users = $conn->query($sql);
           <ul class="dropdown-menu dropdown-menu-end">
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item fw-bold fw-light" href="wishlist.php">Wishlists</a></li>
-              <li><a class="dropdown-item fw-bold fw-light" href="manageHome.php">Airbnb your home</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
+              <li><a class="dropdown-item fw-bold fw-light" href="manage-home.php">Airbnb your home</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
             <?php else: ?>
@@ -60,7 +58,7 @@ $users = $conn->query($sql);
       </div>
       <div class="mt-2 row row-cols-1 row-cols-md-3 g-sm-0 g-md-2 gy-sm-1 gy-md-1">
         <div class="col">
-          <a href="account-setting/personal-info.php" style="text-decoration: none">
+          <a href="personal-info.php" style="text-decoration: none">
             <div class="card shadow mb-5 px-2 bg-white rounded" style="width: 100%;">
               <div class="card-body">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">

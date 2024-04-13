@@ -101,20 +101,52 @@
     }
   }
 
-  //Controller xử lý chỉnh sửa thông tin tài khoản
-  if (isset($_POST['save_user_info_btn'])) {
+  //user edit full name
+  if (isset($_POST['save-user-full-name'])) {
+
     $name = $_POST['name'];
-    $phone = $_POST['phone'];
     $id = $_SESSION['user_id'];
 
     try {
-      $sql = "UPDATE `user` SET `name` = '$name', `phone` = '$phone' WHERE `user`.`id` = $id";
-      header('Location: account.php');
+      $sql = "UPDATE `user` SET `name` = '$name' WHERE `user`.`id` = $id";
+      $conn->exec($sql);
+      header('Location: personal-info.php');
       exit();
     } catch (\Exception $e) {
 
     }
+  }
 
+  //user edit email
+  if (isset($_POST['save-user-email'])) {
+
+    $email = $_POST['email'];
+    $id = $_SESSION['user_id'];
+
+    try {
+      $sql = "UPDATE `user` SET `email` = '$email' WHERE `user`.`id` = $id";
+      $conn->exec($sql);
+      header('Location: personal-info.php');
+      exit();
+    } catch (\Exception $e) {
+
+    }
+  }
+
+  //user edit phone numbers
+  if (isset($_POST['save-user-phone'])) {
+
+    $phone = $_POST['phone'];
+    $id = $_SESSION['user_id'];
+
+    try {
+      $sql = "UPDATE `user` SET `phone` = '$phone' WHERE `user`.`id` = $id";
+      $conn->exec($sql);
+      header('Location: personal-info.php');
+      exit();
+    } catch (\Exception $e) {
+
+    }
   }
 
 ?>
