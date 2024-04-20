@@ -19,7 +19,7 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
     <nav class="navbar sticky-top bg-white">
       <div class="container pt-2">
         <a class="navbar-brand" href="index.php">
-          <img src="Assets/airbnb.png" style="width: 100%; max-width: 100px; height: auto">
+          <img src="assets/airbnb.png" style="width: 100%; max-width: 100px; height: auto">
         </a>
         <div class="dropdown">
           <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,8 +33,9 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="wishlist.php">Wishlists</a></li>
-              <li><a class="dropdown-item fw-bold fw-light" href="manage-home.php">Airbnb your home</a></li>
+              <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
+              <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
+              <li><a class="dropdown-item fw-medium" href="#">Notify</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>

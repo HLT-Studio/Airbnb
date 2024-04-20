@@ -71,7 +71,7 @@ $users = $conn->query($sql);
           </a>
         </div>
         <div class="col">
-          <a href="personal-info.php" style="text-decoration: none">
+          <a href="account-security.php" style="text-decoration: none">
             <div class="card shadow mb-5 px-2 bg-white rounded" style="width: 100%;">
               <div class="card-body">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-shield-lock" viewBox="0 0 16 16">
