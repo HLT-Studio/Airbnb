@@ -149,4 +149,36 @@
     }
   }
 
+
+  //password's user change
+  if(isset($_POST["change-user-password"])){
+    $id = $_SESSION['user_id'];
+    $curPass = $_POST["current-password"];
+
+    try{
+      $sql = "SELECT `password` FROM `user` WHERE `id` = $id";
+      $temp = $conn->prepare($sql);
+      $temp->execute();
+      $getPass = $temp->fetchColumn();
+      if($curPass == $getPass)
+      {
+        $newPass = $_POST["new-password"];
+        $sqlforPass = "UPDATE `user` SET `password` = '$newPass' WHERE `user`.`id` = $id";
+        $conn->exec($sqlforPass);
+        $_SESSION['passChange_alert'] = "Update successfully";
+        $_SESSION['text_color'] = "text-success";
+        header('Location: account-security.php');
+      }
+      else{
+        throw new Exception("Current password isn't correct !!!");
+      }
+
+    }
+    catch(Exception $e){
+      $_SESSION['passChange_alert'] = $e->getMessage();
+      $_SESSION['text_color'] = "text-danger";
+      header('Location: account-security.php');
+    }
+  }
+
 ?>

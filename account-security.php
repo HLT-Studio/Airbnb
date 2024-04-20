@@ -88,7 +88,7 @@ foreach ($conn->query($sql) as $user ) {
                 </div>
               </div>
               <div class="collapse" id="editPass">
-                <form action="" method="post">
+                <form action="accountController.php" method="post">
                   <div class="row mt-2">
                     <div class="col-12">
                       <label for="current-password" class="fw-light">Current password</label>
@@ -108,6 +108,11 @@ foreach ($conn->query($sql) as $user ) {
                   </div>
                 </form>
               </div>
+              <?php if(isset($_SESSION['passChange_alert'])) { ?>
+                <div class="d-flex justify-center">
+                  <h3 class="<?php echo $_SESSION['text_color'] ?>"><?php echo $_SESSION['passChange_alert'] ?></h3>
+                </div>
+              <?php unset($_SESSION['passChange_alert']); } ?>  
             </div>
           </div>
           <hr style="border: 1px solid gray"/>

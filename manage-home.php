@@ -24,6 +24,10 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
+  <style>
+    .col {position: relative;}
+    .insideimg {position: absolute; top: 3; right: 10}
+  </style>
   <body>
     <nav class="navbar sticky-top bg-white">
       <div class="container pt-2">
@@ -328,8 +332,11 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
         <div class="mt-5 row row-cols-1 row-cols-md-3 g-sm-3 g-md-3">
           <?php foreach ($conn->query($result) as $place): ?>
             <div class="col">
-              <a href="manage-home-editor.php?id=<?= $place['id'] ?>" class="link-dark" style="text-decoration:none">
-                <img src="<?= $place['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="rounded" width="100%" height="auto">
+              <?php if($place['approve'] == 0) {?>
+                <span class="btn btn-primary insideimg">Wait to approve</span>
+              <?php } ?>
+              <a href="manage-home-editor.php?id=<?= $place['id'] ?>" class="link-dark waitapprove" style="text-decoration:none">
+                <img src="<?= $place['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="rounded imgcontain" width="100%" height="auto">
                 <div class="row mt-2">
                   <div class="col-12">
                     <p class="fw-bold mb-0"><?= $place['name'] ?></p>

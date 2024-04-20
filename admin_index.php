@@ -22,11 +22,23 @@ $place_not_approved = $conn->query($sql_not_approved);
 $numb_approved = $place_approved->fetchColumn();
 $numb_not_approved = $place_not_approved->fetchColumn();
 
+$approve1 = "";
+$approve0 = "";
 if (isset($_GET['approve'])) {
   $approve = $_GET['approve'];
   $sql = "SELECT * FROM `place` WHERE `approve` = $approve;";
+  if($_GET['approve'] == 1){
+    $approve1 = "active";
+    $approve0 = "";
+  }
+  else{
+    $approve0 = "active";
+    $approve1 = "";
+  }
 } else {
   $sql = "SELECT * FROM `place` WHERE `approve` = 0;";
+  $approve0 = "active";
+  $approve1 = "";
 }
 $lstplace = $conn->query($sql);
 
@@ -77,8 +89,8 @@ $lstplace = $conn->query($sql);
           <h2>Welcome Admin,</h2>
         </div>
         <div class="col-12 mt-3">
-          <a id="show-approved" class="btn btn-outline-dark" href="admin_index.php?approve=1">Approved (<?= $numb_approved ?>)</a>
-          <a id="show-not-approved" class="btn btn-outline-dark" href="admin_index.php?approve=0">Awaiting review (<?= $numb_not_approved ?>)</a>
+          <a id="show-approved" class="btn btn-outline-dark <?= $approve1 ?> " href="admin_index.php?approve=1">Approved (<?= $numb_approved ?>)</a>
+          <a id="show-not-approved" class="btn btn-outline-dark <?= $approve0 ?> " href="admin_index.php?approve=0">Awaiting review (<?= $numb_not_approved ?>)</a>
         </div>
       </div>
       <hr style="border: 1px solid black"/>
