@@ -98,7 +98,7 @@ $lstplace = $conn->query($sql);
         <?php foreach ($lstplace as $element): ?>
           <div class="col">
             <a href="approve_detail.php?id=<?= $element['id'] ?>" class="link-dark" style="text-decoration:none">
-              <img src="<?= $element['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="rounded" width="100%" height="auto">
+              <img src="<?= $element['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='assets/img-not-found.jpeg'" class="rounded" width="100%" height="200px" style="object-fit: cover;">
               <div class="row mb-0">
                 <div class="col-8">
                   <p class="mt-2 fw-bold mb-0"><?= $element['state'] . ", " . $element['country'] ?></p>

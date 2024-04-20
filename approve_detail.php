@@ -37,6 +37,7 @@
       $price = $home['price'];
       $cleaning_fee = $home['cleaning_fee'];
       $amenitiesArr = explode(', ', $amenities);
+      $approve = $home['approve'];
     }
     $host_query = "SELECT * FROM `user` WHERE `id` = $host_id;";
     foreach ($conn->query($host_query) as $user) {
@@ -186,7 +187,11 @@
               <input type="hidden" name="adminId" value="<?php echo $_SESSION['user_id'] ?>">
               <input type="hidden" name="placeId" value="<?php echo $_GET["id"] ?>">
               <hr style="border: 1px solid grey"/>
-              <input type="submit" id="approve" name="approve" class="btn btn-success fst-light py-2 mt-2" value="Approve" style="width: 100%">
+              <?php if ($approve == 0): ?>
+                <input type="submit" id="approve" name="approve" class="btn btn-success fst-light py-2 mt-2" value="Approve" style="width: 100%">
+              <?php else: ?>
+                <input type="submit" id="disapprove" name="disapprove" class="btn btn-danger fst-light py-2 mt-2" value="Disapprove" style="width: 100%">
+              <?php endif ?>
             </form>
           </div>
         </div>

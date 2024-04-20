@@ -26,7 +26,7 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
   </head>
   <style>
     .col {position: relative;}
-    .insideimg {position: absolute; top: 3; right: 10}
+    .insideimg {position: absolute !important; top: 0 !important; right: 8px !important;}
   </style>
   <body>
     <nav class="navbar sticky-top bg-white">
@@ -46,8 +46,8 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="wishlist.php">Wishlists</a></li>
-              <li><a class="dropdown-item fw-bold fw-light" href="manage-home.php">Airbnb your home</a></li>
+              <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
+              <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>
@@ -336,7 +336,7 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
                 <span class="btn btn-primary insideimg">Wait to approve</span>
               <?php } ?>
               <a href="manage-home-editor.php?id=<?= $place['id'] ?>" class="link-dark waitapprove" style="text-decoration:none">
-                <img src="<?= $place['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" class="rounded imgcontain" width="100%" height="auto">
+                <img src="<?= $place['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='assets/img-not-found.jpeg'" class="rounded imgcontain" width="100%" height="300px" style="object-fit: cover;">
                 <div class="row mt-2">
                   <div class="col-12">
                     <p class="fw-bold mb-0"><?= $place['name'] ?></p>

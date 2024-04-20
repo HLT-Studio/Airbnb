@@ -46,7 +46,7 @@
         exit();
     }
 
-    //admin duyệt bài đăng của user
+    //admin approve place of user
     if (isset($_POST["approve"])) {
         try{
             if(!isset($_POST['adminId'])){
@@ -55,6 +55,25 @@
             else{
                 $placeid = $_POST['placeId'];
                 $sqlApprove = "UPDATE `place` SET `approve` = '1' WHERE `place`.`id` = $placeid";
+                $conn->exec($sqlApprove);
+                header('Location: admin_index.php');
+            }
+        }
+        catch(Exception $e){
+            $_SESSION['errorRole'] = $e->getMessage();
+            header('Location: login.php');
+        }
+    }
+
+    //admin disapprove place of user
+    if (isset($_POST["disapprove"])) {
+        try{
+            if(!isset($_POST['adminId'])){
+                throw new Exception("Only admin can approve user's post !!!");
+            }
+            else{
+                $placeid = $_POST['placeId'];
+                $sqlApprove = "UPDATE `place` SET `approve` = '0' WHERE `place`.`id` = $placeid";
                 $conn->exec($sqlApprove);
                 header('Location: admin_index.php');
             }
