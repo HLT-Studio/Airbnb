@@ -1,5 +1,22 @@
 <?php
 session_start();
+include_once("DBconnect.php");
+
+$iduser = $_SESSION['user_id'];
+
+$sql = "Select * from storage where userid = $iduser and favorite = 1";
+$storage = $conn->query($sql);
+
+$arrplaceid = array();
+
+foreach($storage as $tmp){
+  array_push($arrplaceid, $tmp['placeid']);
+}
+
+$sqlplace = "SELECT * FROM `place` WHERE id in ('". implode("' , '", $arrplaceid) . "')";
+$wishplace = $conn->query($sqlplace);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -51,6 +68,29 @@ session_start();
         <div class="col-12 col-md-11">
           <h3>Wishlists</h3>
         </div>
+        <div class="mt-2 row row-cols-1 row-cols-md-4 g-sm-0 g-md-5">
+        <?php foreach ($wishplace as $element): ?>
+          <div class="col">
+            <a href="detail.php?id=<?= $element['id'] ?>" class="link-dark" style="text-decoration:none">
+              <img src="<?= $element['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='assets/img-not-found.jpeg'" class="rounded" width="100%" height="200px" style="object-fit: cover;">
+              <div class="row mb-0">
+                <div class="col-8">
+                  <p class="mt-2 fw-bold mb-0"><?= $element['state'] . ", " . $element['country'] ?></p>
+                </div>
+                <div class="col-4 text-end">
+                  <p class="mt-2 fw-light mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 20 20">
+                      <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>&nbsp;5
+                  </p>
+                </div>
+              </div>
+              <p class="text-secondary mt-2">Added&nbsp;<?= $element['calendar_updated'] ?></p>
+              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= $element['price'] ?></span>&nbsp;night</p>
+            </a>
+          </div>
+        <?php endforeach; ?>
+      </div>
       </div>
     </div>
   </body>
