@@ -47,7 +47,7 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
           <ul class="dropdown-menu dropdown-menu-end">
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
-              <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
+              <li><a class="dropdown-item fw-medium" href="#">Notify</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>

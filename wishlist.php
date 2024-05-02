@@ -25,9 +25,9 @@ $wishplace = $conn->query($sqlplace);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Wishlists</title>
     <link rel="icon" type="image/svg+xml" sizes="any" href="Assets/airbnb-1.svg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
     <nav class="navbar sticky-top bg-white">
@@ -46,17 +46,16 @@ $wishplace = $conn->query($sqlplace);
             </svg>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <?php if (isset($_SESSION['idTokenString']) && !empty($_SESSION['idTokenString'])): ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="#">Profile</a></li>
-              <li><a class="dropdown-item fw-bold fw-light" href="#">Wishlists</a></li>
-              <li><a class="dropdown-item fw-bold fw-light" href="#">Airbnb your home</a></li>
+            <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
+              <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
+              <li><a class="dropdown-item fw-medium" href="#">Notify</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
             <?php else: ?>
               <li><a class="dropdown-item fw-bold fw-light" href="login.php">Sign in</a></li>
               <li><a class="dropdown-item fw-light" href="register.php">Sign up</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item fw-light" href="">Airbnb your home</a></li>
             <?php endif; ?>
           </ul>
         </div>

@@ -34,8 +34,9 @@ $users = $conn->query($sql);
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="wishlist.php">Wishlists</a></li>
-              <li><a class="dropdown-item fw-bold fw-light" href="manage-home.php">Airbnb your home</a></li>
+              <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
+              <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
+              <li><a class="dropdown-item fw-medium" href="#">Notify</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
             <?php else: ?>

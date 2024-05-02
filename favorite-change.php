@@ -9,6 +9,8 @@
         if($rslt->rowCount() == 0){
             $sqlinsert = "INSERT INTO `storage` (`id`, `userid`, `placeid`, `favorite`, `paid`) VALUES (NULL, '$iduser', '$id', '1', '')";
             $conn->exec($sqlinsert);
+            header("Location: detail.php?id=$id");
+            exit();
         }
         else{
             foreach($rslt as $tmp){
@@ -16,11 +18,15 @@
                     $idstorage = $tmp['id'];
                     $sqledit = "UPDATE `storage` SET `favorite` = '1' WHERE `storage`.`id` = $idstorage";
                     $conn->exec($sqledit);
+                    header("Location: detail.php?id=$id");
+                    exit();
                 }
                 else{
                     $idstorage = $tmp['id'];
                     $sqledit = "UPDATE `storage` SET `favorite` = '0' WHERE `storage`.`id` = $idstorage";
                     $conn->exec($sqledit);
+                    header("Location: detail.php?id=$id");
+                    exit();
                 }
             }
         }
