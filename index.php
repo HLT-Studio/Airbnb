@@ -72,121 +72,123 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
             </svg>
              Filter
           </button>
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Filter</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-12">
-                        <p class="fs-3 mb-0">Price range</p>
-                        <p class="fw-light">Nightly prices before fees and taxes</p>
-                      </div>
-                    </div>
-                    <div class="row gx-5">
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-floating">
-                          <input type="number" class="form-control" id="MinimumPrice" name="MinimumPrice" min="10">
-                          <label for="MinimumPrice">Minimum</label>
+          <form action="" method="post">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Filter</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">
+                          <p class="fs-3 mb-0">Price range</p>
+                          <p class="fw-light">Nightly prices before fees and taxes</p>
                         </div>
                       </div>
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-floating">
-                          <input type="number" class="form-control" id="MaximumPrice" min="10">
-                          <label for="MaximumPrice">Maximum</label>
-                        </div>
-                      </div>
-                    </div>
-                    <hr style="border: 1px solid gray"/>
-                    <div class="row gy-3">
-                      <div class="col-12">
-                        <p class="fs-3 mb-0">Rooms and beds</p>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-floating">
-                          <select class="form-select" id="BedroomsSelect" aria-label="Floating label select example">
-                            <option value="Any">Any</option>
-                            <?php for ($i=1; $i <= 8; $i++) {?>
-                              <?php if ($i < 8): ?>
-                                <option value="<?= $i ?>"><?= $i ?></option>
-                              <?php else: ?>
-                                <option value="<?= $i ?>"><?= $i ?> +</option>
-                              <?php endif; ?>
-                            <?php } ?>
-                          </select>
-                          <label for="BedroomsSelect">Bedrooms</label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-floating">
-                          <select class="form-select" id="BedsSelect" aria-label="Floating label select example">
-                            <option value="Any">Any</option>
-                            <?php for ($i=1; $i <= 8; $i++) {?>
-                              <?php if ($i < 8): ?>
-                                <option value="<?= $i ?>"><?= $i ?></option>
-                              <?php else: ?>
-                                <option value="<?= $i ?>"><?= $i ?> +</option>
-                              <?php endif; ?>
-                            <?php } ?>
-                          </select>
-                          <label for="BedsSelect">Beds</label>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="form-floating">
-                          <select class="form-select" id="BathroomsSelect" aria-label="Floating label select example">
-                            <option value="Any">Any</option>
-                            <?php for ($i=1; $i <= 8; $i++) {?>
-                              <?php if ($i < 8): ?>
-                                <option value="<?= $i ?>"><?= $i ?></option>
-                              <?php else: ?>
-                                <option value="<?= $i ?>"><?= $i ?> +</option>
-                              <?php endif; ?>
-                            <?php } ?>
-                          </select>
-                          <label for="BathroomsSelect">Bathrooms</label>
-                        </div>
-                      </div>
-                    </div>
-                    <hr style="border: 1px solid gray"/>
-                    <div class="row">
-                      <div class="col-12">
-                        <p class="fs-3">Amenities</p>
-                      </div>
-                    </div>
-                    <div class="row row-cols-2 px-1 gy-3">
-                      <?php for ($i=0; $i < sizeof($amenities); $i++) {?>
-                        <div class="col">
-                          <div class="form-check">
-                            <input class="form-check-input mt-2" type="checkbox" value="<?= $amenities[$i] ?>" id="ch<?= $i ?>" name="ch<?= $i ?>" style="scale: 1.5">
-                            <label class="form-check-label fw-light fs-5 ms-1" for="ch<?= $i ?>">
-                              <?= $amenities[$i] ?>
-                            </label>
+                      <div class="row gx-5">
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-floating">
+                            <input type="number" class="form-control" id="MinimumPrice" name="MinimumPrice" min="10">
+                            <label for="MinimumPrice">Minimum</label>
                           </div>
                         </div>
-                      <?php } ?>
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-floating">
+                            <input type="number" class="form-control" id="MaximumPrice" min="10">
+                            <label for="MaximumPrice">Maximum</label>
+                          </div>
+                        </div>
+                      </div>
+                      <hr style="border: 1px solid gray"/>
+                      <div class="row gy-3">
+                        <div class="col-12">
+                          <p class="fs-3 mb-0">Rooms and beds</p>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-floating">
+                            <select class="form-select" id="BedroomsSelect" aria-label="Floating label select example">
+                              <option value="Any">Any</option>
+                              <?php for ($i=1; $i <= 8; $i++) {?>
+                                <?php if ($i < 8): ?>
+                                  <option value="<?= $i ?>"><?= $i ?></option>
+                                <?php else: ?>
+                                  <option value="<?= $i ?>"><?= $i ?> +</option>
+                                <?php endif; ?>
+                              <?php } ?>
+                            </select>
+                            <label for="BedroomsSelect">Bedrooms</label>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-floating">
+                            <select class="form-select" id="BedsSelect" aria-label="Floating label select example">
+                              <option value="Any">Any</option>
+                              <?php for ($i=1; $i <= 8; $i++) {?>
+                                <?php if ($i < 8): ?>
+                                  <option value="<?= $i ?>"><?= $i ?></option>
+                                <?php else: ?>
+                                  <option value="<?= $i ?>"><?= $i ?> +</option>
+                                <?php endif; ?>
+                              <?php } ?>
+                            </select>
+                            <label for="BedsSelect">Beds</label>
+                          </div>
+                        </div>
+                        <div class="col-12">
+                          <div class="form-floating">
+                            <select class="form-select" id="BathroomsSelect" aria-label="Floating label select example">
+                              <option value="Any">Any</option>
+                              <?php for ($i=1; $i <= 8; $i++) {?>
+                                <?php if ($i < 8): ?>
+                                  <option value="<?= $i ?>"><?= $i ?></option>
+                                <?php else: ?>
+                                  <option value="<?= $i ?>"><?= $i ?> +</option>
+                                <?php endif; ?>
+                              <?php } ?>
+                            </select>
+                            <label for="BathroomsSelect">Bathrooms</label>
+                          </div>
+                        </div>
+                      </div>
+                      <hr style="border: 1px solid gray"/>
+                      <div class="row">
+                        <div class="col-12">
+                          <p class="fs-3">Amenities</p>
+                        </div>
+                      </div>
+                      <div class="row row-cols-2 px-1 gy-3">
+                        <?php for ($i=0; $i < sizeof($amenities); $i++) {?>
+                          <div class="col">
+                            <div class="form-check">
+                              <input class="form-check-input mt-2" type="checkbox" value="<?= $amenities[$i] ?>" id="ch<?= $i ?>" name="ch<?= $i ?>" style="scale: 1.5">
+                              <label class="form-check-label fw-light fs-5 ms-1" for="ch<?= $i ?>">
+                                <?= $amenities[$i] ?>
+                              </label>
+                            </div>
+                          </div>
+                        <?php } ?>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-6">
-                        <button type="button" class="btn btn-light" name="clearFilter">Clear all</button>
-                      </div>
-                      <div class="col-6 text-end">
-                        <button type="button" class="btn btn-dark" name="showResult">Show</button>
+                  <div class="modal-footer">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-6">
+                          <button type="reset" class="btn btn-light" name="clearFilter">Clear all</button>
+                        </div>
+                        <div class="col-6 text-end">
+                          <button type="submit" class="btn btn-dark" name="showResult">Show</button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
       <div class="mt-2 row row-cols-1 row-cols-md-4 g-sm-0 g-md-5">
