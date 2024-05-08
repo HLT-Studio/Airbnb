@@ -7,7 +7,7 @@
         $sqltmp = "Select * from storage where userid = $iduser AND placeid = $id";
         $rslt = $conn->query($sqltmp);
         if($rslt->rowCount() == 0){
-            $sqlinsert = "INSERT INTO `storage` (`id`, `userid`, `placeid`, `favorite`, `paid`) VALUES (NULL, '$iduser', '$id', '1', '')";
+            $sqlinsert = "INSERT INTO `storage` (`id`, `userid`, `placeid`, `rentReq`, `favorite`, `chkIn`, `chkOut`, `guests`, `total`, `paid`) VALUES (NULL, '$iduser', '$id', '0', '1', '', '', '', '', '0')";
             $conn->exec($sqlinsert);
             header("Location: detail.php?id=$id");
             exit();

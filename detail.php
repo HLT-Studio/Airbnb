@@ -33,17 +33,18 @@ foreach ($conn->query($sql) as $home) {
   $amenitiesArr = explode(', ', $amenities);
 }
 $host_query = "SELECT * FROM `user` WHERE `id` = $host_id;";
-$favorite_query = "SELECT * FROM `storage` WHERE `userid` = $iduser AND `placeid` = $id;";
+if($iduser != 0){
+  $favorite_query = "SELECT * FROM `storage` WHERE `userid` = $iduser AND `placeid` = $id;";
+  foreach ($conn->query($favorite_query) as $place) {
+    $favorite = $place['favorite'];
+  }
+}
 $sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $iduser;";
 $records = $conn->query($sql_notify);
 $total_rows = $records->rowCount();
 
 foreach ($conn->query($host_query) as $user) {
   $host_name = $user['name'];
-}
-
-foreach ($conn->query($favorite_query) as $place) {
-  $favorite = $place['favorite'];
 }
 
 if(isset($_GET["favoritechange"])){
@@ -107,15 +108,22 @@ if(isset($_GET["favoritechange"])){
         </div>
         <div class="col-12 col-md-1 text-center text-md-end">
           <a class="icon-link icon-link-hover link-dark" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" href="detail.php?id=<?= $id ?>&favoritechange=true">
-            <?php if ($favorite == 1): ?>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-              </svg>
-            <?php else: ?>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-              </svg>
-            <?php endif ?>
+            <?php if (isset($favorite)){ ?>
+              <?php if($favorite == 1){ ?>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                </svg>
+              <?php }else{ ?>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                </svg>
+            <?php }} 
+              else {
+            ?>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                </svg>
+            <?php } ?>
             Save
           </a>
         </div>
@@ -190,7 +198,7 @@ if(isset($_GET["favoritechange"])){
           <div class="card shadow mb-5 px-2 bg-white rounded" style="width: 100%;">
             <div class="card-body">
               <h5 class="card-title">$<?= $price ?>&nbsp;<span class="fs-6 fw-light">night</span></h5>
-              <form action="" method="post">
+              <form action="RentController.php" method="post">
                 <div class="row mb-2">
                   <div class="col-6 pe-1">
                     <div class="form-floating">
@@ -206,7 +214,7 @@ if(isset($_GET["favoritechange"])){
                   </div>
                 </div>
                 <div class="form-floating">
-                  <select class="form-select" id="numbGuest" aria-label="Floating label select example">
+                  <select class="form-select" name="guests" id="numbGuest" aria-label="Floating label select example">
                     <?php for ($i=1; $i <= $accommodates; $i++) {?>
                       <option value="<?= $i ?>"><?= $i ?></option>
                     <?php } ?>
@@ -233,6 +241,10 @@ if(isset($_GET["favoritechange"])){
                     <p class="mt-2 fw-light">$<span id="cleaning_fee"><?= $cleaning_fee ?></span></p>
                   </div>
                 </div>
+                <input type="hidden" name="iduser" value="<?= $iduser ?>">
+                <input type="hidden" name="idplace" value="<?= $id ?>">
+                <input type="hidden" name="price" value="<?= $price ?>">
+                <input type="hidden" name="cleaningfee" value="<?= $cleaning_fee ?>">
                 <input type="submit" id="checkSubmit" name="submit" class="btn btn-danger fst-light py-2 mt-2" value="Reserve" style="width: 100%">
               </form>
               <hr style="border: 1px solid grey"/>
