@@ -16,6 +16,9 @@ foreach($storage as $tmp){
 $sqlplace = "SELECT * FROM `place` WHERE id in ('". implode("' , '", $arrplaceid) . "')";
 $wishplace = $conn->query($sqlplace);
 
+$sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $iduser;";
+$records = $conn->query($sql_notify);
+$total_rows = $records->rowCount();
 
 ?>
 <!DOCTYPE html>
@@ -48,7 +51,11 @@ $wishplace = $conn->query($sqlplace);
           <ul class="dropdown-menu dropdown-menu-end">
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
-              <li><a class="dropdown-item fw-medium" href="#">Notify</a></li>
+              <?php if ($total_rows != 0): ?>
+                <li><a class="dropdown-item fw-medium" href="notify.php">Notify<span class="ms-2 text-danger fw-medium">&#8226;</span></a></li>
+              <?php else: ?>
+                <li><a class="dropdown-item fw-medium" href="notify.php">Notify</a></li>
+              <?php endif; ?>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>

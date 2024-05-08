@@ -43,6 +43,7 @@
     foreach ($conn->query($host_query) as $user) {
       $host_name = $user['name'];
     }
+    $home_address = $street . ", " . $city;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -164,7 +165,7 @@
         <div class="card shadow mb-5 px-2 bg-white rounded" style="width: 100%;">
           <div class="card-body">
             <h5 class="card-title">Admin Controller</h5>
-            <form action="index.html" method="post">
+            <form action="notifyController.php" method="post">
               <a class="card-subtitle mb-2 fw-bold link-underline link-underline-opacity-0" data-bs-toggle="collapse" href="#messageBox" role="button" aria-expanded="false" aria-controls="messageBox" >
                 Send message to Host&nbsp;&nbsp;
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
@@ -174,7 +175,11 @@
               <div class="collapse" id="messageBox">
                 <div class="row mt-2">
                   <div class="col-12">
-                    <textarea class="form-control" id="message" name="message" maxlength="100%" style="height: 200px"></textarea>
+                    <textarea class="form-control" id="mess_container" name="mess_container" maxlength="100%" style="height: 200px"></textarea>
+                    <input type="hidden" name="host_id" value="<?= $host_id ?>">
+                    <input type="hidden" name="home_name" value="<?= $name ?>">
+                    <input type="hidden" name="home_address" value="<?= $home_address ?>">
+                    <input type="hidden" name="place_id" value="<?= $id ?>">
                   </div>
                   <div class="col-12 text-end mt-2">
                     <input class="btn btn-primary me-2" type="submit" name="sendMess" id="sendMess" value="Send">

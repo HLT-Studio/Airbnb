@@ -34,6 +34,9 @@ foreach ($conn->query($sql) as $home) {
 }
 $host_query = "SELECT * FROM `user` WHERE `id` = $host_id;";
 $favorite_query = "SELECT * FROM `storage` WHERE `userid` = $iduser AND `placeid` = $id;";
+$sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $iduser;";
+$records = $conn->query($sql_notify);
+$total_rows = $records->rowCount();
 
 foreach ($conn->query($host_query) as $user) {
   $host_name = $user['name'];
@@ -79,7 +82,11 @@ if(isset($_GET["favoritechange"])){
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
               <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
-              <li><a class="dropdown-item fw-medium" href="#">Notify</a></li>
+              <?php if ($total_rows != 0): ?>
+                <li><a class="dropdown-item fw-medium" href="notify.php">Notify<span class="ms-2 text-danger fw-medium">&#8226;</span></a></li>
+              <?php else: ?>
+                <li><a class="dropdown-item fw-medium" href="notify.php">Notify</a></li>
+              <?php endif; ?>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="#">Account</a></li>
               <li><hr class="dropdown-divider"></li>

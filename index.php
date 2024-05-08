@@ -1,7 +1,14 @@
 <?php
 session_start();
 include_once("DBconnect.php");
+$iduser = 0;
+if(isset($_SESSION['user_id'])){
+  $iduser = $_SESSION['user_id'];
+}
 $sql = "SELECT * FROM `place` WHERE `approve` = 1;";
+$sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $iduser;";
+$records = $conn->query($sql_notify);
+$total_rows = $records->rowCount();
 $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
 ?>
 <!DOCTYPE html>
@@ -35,7 +42,11 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
               <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
-              <li><a class="dropdown-item fw-medium" href="#">Notify</a></li>
+              <?php if ($total_rows != 0): ?>
+                <li><a class="dropdown-item fw-medium" href="notify.php">Notify<span class="ms-2 text-danger fw-medium">&#8226;</span></a></li>
+              <?php else: ?>
+                <li><a class="dropdown-item fw-medium" href="notify.php">Notify</a></li>
+              <?php endif; ?>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>

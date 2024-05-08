@@ -5,6 +5,9 @@ include_once("pagination.php");
 $id = (int)$_SESSION['user_id'];
 $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
 $result = "SELECT * FROM `place` WHERE `host_id` = $id ORDER BY `id` ASC LIMIT $position, $display;";
+$sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $id;";
+$records = $conn->query($sql_notify);
+$total_rows = $records->rowCount();
 $index = 1;
 if(isset($_GET['page'])){
   $index = $_GET['page'];
@@ -47,7 +50,11 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
           <ul class="dropdown-menu dropdown-menu-end">
             <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
-              <li><a class="dropdown-item fw-medium" href="#">Notify</a></li>
+              <?php if ($total_rows != 0): ?>
+                <li><a class="dropdown-item fw-medium" href="notify.php">Notify<span class="ms-2 text-danger fw-medium">&#8226;</span></a></li>
+              <?php else: ?>
+                <li><a class="dropdown-item fw-medium" href="notify.php">Notify</a></li>
+              <?php endif; ?>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>
