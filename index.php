@@ -5,11 +5,13 @@ $iduser = 0;
 if(isset($_SESSION['user_id'])){
   $iduser = $_SESSION['user_id'];
 }
+$amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
 $sql = "SELECT * FROM `place` WHERE `approve` = 1;";
+include_once("filter.php");
 $sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $iduser;";
 $records = $conn->query($sql_notify);
 $total_rows = $records->rowCount();
-$amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
+$allplace = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -72,7 +74,7 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
             </svg>
              Filter
           </button>
-          <form action="" method="post">
+          <form action="index.php" method="post">
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
@@ -97,7 +99,7 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
                         </div>
                         <div class="col-sm-12 col-md-6">
                           <div class="form-floating">
-                            <input type="number" class="form-control" id="MaximumPrice" min="10">
+                            <input type="number" class="form-control" name="MaximumPrice" id="MaximumPrice" min="10">
                             <label for="MaximumPrice">Maximum</label>
                           </div>
                         </div>
@@ -109,7 +111,7 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <select class="form-select" id="BedroomsSelect" aria-label="Floating label select example">
+                            <select class="form-select" id="BedroomsSelect" name="bedrooms" aria-label="Floating label select example">
                               <option value="Any">Any</option>
                               <?php for ($i=1; $i <= 8; $i++) {?>
                                 <?php if ($i < 8): ?>
@@ -124,7 +126,7 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <select class="form-select" id="BedsSelect" aria-label="Floating label select example">
+                            <select class="form-select" id="BedsSelect" name="beds" aria-label="Floating label select example">
                               <option value="Any">Any</option>
                               <?php for ($i=1; $i <= 8; $i++) {?>
                                 <?php if ($i < 8): ?>
@@ -139,7 +141,7 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <select class="form-select" id="BathroomsSelect" aria-label="Floating label select example">
+                            <select class="form-select" id="BathroomsSelect" name="bathromms" aria-label="Floating label select example">
                               <option value="Any">Any</option>
                               <?php for ($i=1; $i <= 8; $i++) {?>
                                 <?php if ($i < 8): ?>
@@ -192,7 +194,7 @@ $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "
         </div>
       </div>
       <div class="mt-2 row row-cols-1 row-cols-md-4 g-sm-0 g-md-5">
-        <?php foreach ($conn->query($sql) as $element): ?>
+        <?php foreach ($allplace as $element): ?>
           <div class="col">
             <a href="detail.php?id=<?= $element['id'] ?>" class="link-dark" style="text-decoration:none">
               <img src="<?= $element['xl_picture_url'] ?>" onerror="this.onerror=null; this.src='assets/img-not-found.jpeg'" class="rounded" width="100%" height="200px" style="object-fit: cover;">
