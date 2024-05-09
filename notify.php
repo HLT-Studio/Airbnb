@@ -67,8 +67,11 @@ $total_rows = $records->rowCount();
                     <h5 class="card-title">Notification center</h5>
                   <?php endif; ?>
                 </div>
-                <div class="col-6">
-                  <p class="text-end"><a class="link-offset-2 link-underline link-underline-opacity-0" href="#">Clear all</a></p>
+                <div class="col-6 text-end">
+                  <form action="notifyController.php" method="post">
+                    <input type="hidden" name="id-user" id="id-user" value="<?= $iduser ?>">
+                    <button type="submit" class="btn btn-link link-offset-2 link-underline link-underline-opacity-0" name="clear-all-mess" id="clear-all-mess">Clear all</button>
+                  </form>
                 </div>
               </div>
               <div class="row row-cols-1 g-2">

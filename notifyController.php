@@ -28,4 +28,15 @@ if (isset($_POST['del-mess'])) {
   }
 }
 
+if (isset($_POST['clear-all-mess'])) {
+  try {
+    $hostid = (int)$_POST["id-user"];
+    $sql = "DELETE FROM `notify` WHERE `notify`.`hostid` = $hostid";
+    $conn->exec($sql);
+    header("Location: notify.php");
+    exit();
+  } catch (\Exception $e) {
+
+  }
+}
 ?>
