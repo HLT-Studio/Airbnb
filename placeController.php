@@ -11,7 +11,11 @@
         $description = $_POST["description"];
         $notes = $_POST["notes"];
         $transit = $_POST["transit"];
-        $xl_picture_url = $_POST["xl_picture_url"];
+        $xl_picture_url = $_POST["ImageName1"];
+        $ImageName2 = $_POST["ImageName2"];
+        $ImageName3 = $_POST["ImageName3"];
+        $ImageName4 = $_POST["ImageName4"];
+        $ImageName5 = $_POST["ImageName5"];
         $street = $_POST["street"];
         $city = $_POST["city"];
         $state = $_POST["state"];
@@ -38,8 +42,9 @@
         }
         $amenities = rtrim($amenities, ', ');
 
-        $sqltest = "INSERT INTO `place` (`id`, `name`, `summary`, `description`, `notes`, `transit`, `xl_picture_url`, `street`, `city`, `state`, `country`, `latitude`, `longitude`, `property_type`, `accommodates`, `bathrooms`, `bedrooms`, `beds`, `amenities`, `price`, `cleaning_fee`, `calendar_updated`, `number_of_reviews`, `review_scores_rating`, `host_id`, `approve`) VALUES
-        (NULL, '$name', '$summary', '$description', '$notes', '$transit', '$xl_picture_url', '$street', '$city', '$state', '$country', '$latitude', '$longtitude', '$property_type', '$accommodates', '$bathrooms', '$bedrooms', '$beds', '$amenities', '$price', '$cleaning_fee', '$calendar_updated', '$number_of_reviews', '$review_scores_rating', '$host_id', '$approve')";
+        $sqltest = "INSERT INTO `place` (`id`, `name`, `summary`, `description`, `notes`, `transit`, `xl_picture_url`, `imgD1`, `imgD2`, `imgD3`, `imgD4`, `street`, `city`, `state`, `country`, `latitude`, `longitude`, `property_type`, `accommodates`, `bathrooms`, `bedrooms`, `beds`, `amenities`, `price`, `cleaning_fee`, `calendar_updated`, `number_of_reviews`, `review_scores_rating`, `host_id`, `approve`) VALUES 
+        (NULL, '$name', '$summary', '$description', '$notes', '$transit', '$xl_picture_url', '$ImageName2', '$ImageName3', '$ImageName4', '$ImageName5', '$street', '$city', '$state', '$country', '$latitude', '$longitude', '$property_type', '$accommodates', '$bathrooms', '$bedrooms', '$beds', '$amenities', '$price', '$cleaning_fee', '$calendar_updated', '$number_of_reviews', '$review_scores_rating', '$host_id', '$approve')
+        ";
 
         $conn->exec($sqltest);
         header('Location: manage-home.php');

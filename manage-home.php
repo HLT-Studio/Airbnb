@@ -239,8 +239,24 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <input class="form-control" type="text" name="xl_picture_url" id="xl_picture_url" placeholder="xl_picture_url">
-                            <label for="xl_picture_url">Url image</label>
+                            
+                            <input class="form-control" type="file" name="xl_picture_url" id="xl_picture_url" onchange="imageUploaded1()">
+                            <input type="hidden" name="ImageName1" id="ImageName1" value="">
+                            
+                            
+                            <input class="form-control" type="file" name="imgD1" id="imgD1" onchange="imageUploaded2()">
+                            <input type="hidden" name="ImageName2" id="ImageName2" value="">
+                            
+                            
+                            <input class="form-control" type="file" name="imgD2" id="imgD2" onchange="imageUploaded3()">                           
+                            <input type="hidden" name="ImageName3" id="ImageName3" value="">
+                            
+                            
+                            <input class="form-control" type="file" name="imgD3" id="imgD3" onchange="imageUploaded4()">                           
+                            <input type="hidden" name="ImageName4" id="ImageName4" value="">
+                            
+                            <input class="form-control" type="file" name="imgD4" id="imgD4" onchange="imageUploaded5()">
+                            <input type="hidden" name="ImageName5" id="ImageName5" value="">
                           </div>
                         </div>
                       </div>
@@ -371,3 +387,92 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
     </div>
   </body>
 </html>
+<script>
+
+function imageUploaded1() {
+    var filesSelected = document.getElementById("xl_picture_url").files;
+    if (filesSelected.length > 0) {
+        var fileToLoad = filesSelected[0];
+
+        var fileReader = new FileReader();
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+            document.getElementById("ImageName1").src = srcData;
+            
+            document.getElementById("ImageName1").value = fileReader.result;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}
+
+function imageUploaded2() {
+    var filesSelected = document.getElementById("imgD1").files;
+    if (filesSelected.length > 0) {
+        var fileToLoad = filesSelected[0];
+
+        var fileReader = new FileReader();
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+            document.getElementById("ImageName2").src = srcData;
+            
+            document.getElementById("ImageName2").value = fileReader.result;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}
+function imageUploaded3() {
+    var filesSelected = document.getElementById("imgD2").files;
+    if (filesSelected.length > 0) {
+        var fileToLoad = filesSelected[0];
+
+        var fileReader = new FileReader();
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+            document.getElementById("ImageName3").src = srcData;
+            
+            document.getElementById("ImageName3").value = fileReader.result;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}
+function imageUploaded4() {
+    var filesSelected = document.getElementById("imgD3").files;
+    if (filesSelected.length > 0) {
+        var fileToLoad = filesSelected[0];
+
+        var fileReader = new FileReader();
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+            document.getElementById("ImageName4").src = srcData;
+            
+            document.getElementById("ImageName4").value = fileReader.result;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}
+function imageUploaded5() {
+    var filesSelected = document.getElementById("imgD4").files;
+    if (filesSelected.length > 0) {
+        var fileToLoad = filesSelected[0];
+
+        var fileReader = new FileReader();
+
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+            document.getElementById("ImageName5").src = srcData;
+            
+            document.getElementById("ImageName5").value = fileReader.result;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+}
+</script>

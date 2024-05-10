@@ -17,6 +17,10 @@
     $sql = "SELECT * FROM `place` WHERE `id` = $id;";
     foreach ($conn->query($sql) as $home) {
       $xl_picture_url = $home['xl_picture_url'];
+      $imgD1 = $home["imgD1"];
+      $imgD2 = $home["imgD2"];
+      $imgD3 = $home["imgD3"];
+      $imgD4 = $home["imgD4"];
       $name = $home['name'];
       $property_type = $home['property_type'];
       $description = $home['description'];
@@ -102,16 +106,16 @@
       <div class="col-0 col-md-6">
         <div class="row row-cols-1 row-cols-md-2 g-sm-2 g-md-2">
           <div class="col">
-            <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+            <img src="<?= $imgD1 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
           </div>
           <div class="col">
-            <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+            <img src="<?= $imgD2 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
           </div>
           <div class="col">
-            <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+            <img src="<?= $imgD3 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
           </div>
           <div class="col">
-            <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+            <img src="<?= $imgD4 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
           </div>
         </div>
       </div>
