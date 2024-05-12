@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 include_once("DBconnect.php");
 include_once("pagination.php");
 $id = (int)$_SESSION['user_id'];
@@ -48,8 +48,11 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
             </svg>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
+          <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
+              <li><a class="dropdown-item fw-medium" href="PlaceList_waitResponse.php">Request list</a></li>
+              <li><a class="dropdown-item fw-medium" href="BookingList.php">Booking list</a></li>
+              <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
               <?php if ($total_rows != 0): ?>
                 <li><a class="dropdown-item fw-medium" href="notify.php">Notify<span class="ms-2 text-danger fw-medium">&#8226;</span></a></li>
               <?php else: ?>

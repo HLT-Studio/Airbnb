@@ -84,8 +84,10 @@ if(isset($_GET["favoritechange"])){
             </svg>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
+          <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
               <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
+              <li><a class="dropdown-item fw-medium" href="PlaceList_waitResponse.php">Request list</a></li>
+              <li><a class="dropdown-item fw-medium" href="BookingList.php">Booking list</a></li>
               <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
               <?php if ($total_rows != 0): ?>
                 <li><a class="dropdown-item fw-medium" href="notify.php">Notify<span class="ms-2 text-danger fw-medium">&#8226;</span></a></li>
@@ -93,7 +95,7 @@ if(isset($_GET["favoritechange"])){
                 <li><a class="dropdown-item fw-medium" href="notify.php">Notify</a></li>
               <?php endif; ?>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item fw-light" href="#">Account</a></li>
+              <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
             <?php else: ?>
@@ -158,14 +160,14 @@ if(isset($_GET["favoritechange"])){
           <h4>Entire&nbsp;<?= $property_type ?>&nbsp;in&nbsp;<?= $street ?></h4>
           <p class="fw-light"><?= $accommodates ?>&nbsp;guests&nbsp;&#8226;&nbsp;<?= $bedrooms ?>&nbsp;bedrooms&nbsp;&#8226;&nbsp;<?= $beds ?>&nbsp;beds&nbsp;&#8226;&nbsp;<?= $bathrooms ?>&nbsp;baths</p>
           <p class="fw-bold">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 20 20">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 20 20">
               <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-            </svg>&nbsp;<?= $star ?>&nbsp;&#8226;&nbsp;<?= $objc[0]->number_of_reviews ?>&nbsp;reviews
+            </svg>&nbsp;<?= $star ?>&nbsp;&#8226;&nbsp;<?= $objc[0]->number_of_reviews ?>&nbsp;reviews -->
           </p>
           <hr style="border: 1px solid grey"/>
           <div class="row align-items-center">
             <div class="col-2 col-md-1">
-              <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;">
+              <!-- <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;"> -->
             </div>
             <div class="col-10 col-md-11">
               <p class="fw-bold mb-0">Hosted&nbsp;by&nbsp;<?= $host_name ?></p>
