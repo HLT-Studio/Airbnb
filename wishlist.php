@@ -4,7 +4,12 @@ include_once("DBconnect.php");
 
 $iduser = $_SESSION['user_id'];
 
-$sql = "Select * from storage where userid = $iduser and favorite = 1";
+if (empty($_SESSION['user_id'])) {
+  header('Location: login.php');
+  exit();
+}
+
+$sql = "SELECT * FROM `favouritelst` WHERE `userid` = $iduser;";
 $storage = $conn->query($sql);
 
 $arrplaceid = array();
@@ -27,7 +32,7 @@ $total_rows = $records->rowCount();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Wishlists</title>
-    <link rel="icon" type="image/svg+xml" sizes="any" href="Assets/airbnb-1.svg">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="assets/airbnb-1.svg">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -63,9 +68,6 @@ $total_rows = $records->rowCount();
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
-            <?php else: ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="login.php">Sign in</a></li>
-              <li><a class="dropdown-item fw-light" href="register.php">Sign up</a></li>
             <?php endif; ?>
           </ul>
         </div>

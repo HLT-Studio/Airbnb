@@ -4,6 +4,11 @@ include_once("DBconnect.php");
 
 $hostid = $_SESSION['user_id'];
 
+if (empty($_SESSION['user_id'])) {
+  header('Location: login.php');
+  exit();
+}
+
 $sql = "Select * from place where host_id = $hostid";
 $place_of_host = $conn->query($sql);
 
@@ -13,7 +18,7 @@ foreach($place_of_host as $tmp){
   array_push($arrplaceid, $tmp['id']);
 }
 
-$sql2 = "SELECT * FROM `storage` WHERE placeid in ('". implode("' , '", $arrplaceid) . "') and rentReq = 1";
+$sql2 = "SELECT * FROM `requestpayment` WHERE placeid in ('". implode("' , '", $arrplaceid) . "') and rentReq = 1";
 $place_is_requested = $conn->query($sql2);
 
 $sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $hostid;";
@@ -84,7 +89,7 @@ $total_rows = $records->rowCount();
               <input type="hidden" name="placeid" value="<?= $element["placeid"] ?>">
               <input type="hidden" name="userid" value="<?= $element["userid"] ?>">
               <input type="hidden" name="idstorage" value="<?= $element["id"] ?>">
-              <?php 
+              <?php
                 $idplace = $element["placeid"];
                 $userrent = $element["userid"];
                 $sqltmp = "select * from place where id = $idplace";
@@ -115,7 +120,7 @@ $total_rows = $records->rowCount();
               <p class="text-secondary mt-2">Requested: &nbsp;<?= $element['dateReq'] ?></p>
               <p class="text-secondary mt-2">CheckIn: &nbsp;<?= $element['chkIn'] ?></p>
               <p class="text-secondary mt-2">CheckOut: &nbsp;<?= $element['chkOut'] ?></p>
-              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= $element['total'] ?></span>&nbsp;</p>
+              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= number_format($element['total']) ?></span>&nbsp;</p>
               <p class="fw-bold"><span class="fw-light">Requested by:</span>&nbsp;<?= $fullnameUser ?></p>
               <?php if($element["paid"] == 0){ ?>
                 <input type="submit" name="BookingDetail" class="btn btn-danger fst-light py-2 mt-2" value="Response" style="width: 100%">

@@ -44,9 +44,6 @@ $total_rows = $records->rowCount();
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
-            <?php else: ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="login.php">Sign in</a></li>
-              <li><a class="dropdown-item fw-light" href="register.php">Sign up</a></li>
             <?php endif; ?>
           </ul>
         </div>

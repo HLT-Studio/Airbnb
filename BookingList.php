@@ -1,10 +1,14 @@
 <?php
 session_start();
 include_once("DBconnect.php");
+if (empty($_SESSION['user_id'])) {
+  header('Location: login.php');
+  exit();
+}
 
 $userid = $_SESSION['user_id'];
 
-$sql = "Select * from storage where userid  = $userid and rentReq = 1";
+$sql = "SELECT * FROM `requestpayment` WHERE `userid` = $userid AND `rentReq` = 1;";
 $placeBooking = $conn->query($sql);
 
 $sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $userid;";
@@ -54,9 +58,6 @@ $total_rows = $records->rowCount();
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
-            <?php else: ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="login.php">Sign in</a></li>
-              <li><a class="dropdown-item fw-light" href="register.php">Sign up</a></li>
             <?php endif; ?>
           </ul>
         </div>
@@ -71,14 +72,14 @@ $total_rows = $records->rowCount();
         <div class="mt-2 row row-cols-1 row-cols-md-4 g-sm-0 g-md-5">
         <?php foreach ($placeBooking as $element): ?>
           <div class="col">
-              <?php 
+              <?php
                 $idplace = $element["placeid"];
                 $sqltmp = "select * from place where id = $idplace";
                 $getplace = $conn->query($sqltmp);
                 foreach($getplace as $obj){
                     $img = $obj["xl_picture_url"];
                     $name = $obj["name"];
-                }  
+                }
               ?>
               <img src="<?= $img ?>" onerror="this.onerror=null; this.src='assets/img-not-found.jpeg'" class="rounded" width="100%" height="200px" style="object-fit: cover;">
               <div class="row mb-0">
@@ -96,7 +97,7 @@ $total_rows = $records->rowCount();
               <p class="text-secondary mt-2">Requested: &nbsp;<?= $element['dateReq'] ?></p>
               <p class="text-secondary mt-2">CheckIn: &nbsp;<?= $element['chkIn'] ?></p>
               <p class="text-secondary mt-2">CheckOut: &nbsp;<?= $element['chkOut'] ?></p>
-              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= $element['total'] ?></span>&nbsp;</p>
+              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= number_format($element['total']) ?></span>&nbsp;</p>
               <?php if($element["paid"] == 0){ ?>
                 <p class="btn btn-danger fst-light py-2 mt-2" style="width: 100%">Wait to response</p>
               <?php }

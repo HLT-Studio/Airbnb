@@ -1,7 +1,11 @@
 <?php
 session_start();
-$uid = $_SESSION['user_id'];
 include_once("DBconnect.php");
+if (empty($_SESSION['user_id'])) {
+  header('Location: login.php');
+  exit();
+}
+$uid = $_SESSION['user_id'];
 $sql = "SELECT * FROM `user` WHERE `id` = $uid;";
 foreach ($conn->query($sql) as $user ) {
   $name = $user['name'];
@@ -38,15 +42,10 @@ foreach ($conn->query($sql) as $user ) {
             </svg>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <?php if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])): ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="wishlist.php">Wishlists</a></li>
-              <li><a class="dropdown-item fw-bold fw-light" href="manage-home.php">Airbnb your home</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
-            <?php else: ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="login.php">Sign in</a></li>
-              <li><a class="dropdown-item fw-light" href="register.php">Sign up</a></li>
-            <?php endif; ?>
+            <li><a class="dropdown-item fw-bold fw-light" href="wishlist.php">Wishlists</a></li>
+            <li><a class="dropdown-item fw-bold fw-light" href="manage-home.php">Airbnb your home</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
           </ul>
         </div>
       </div>

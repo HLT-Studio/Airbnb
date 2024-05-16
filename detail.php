@@ -38,9 +38,9 @@ foreach ($conn->query($sql) as $home) {
 }
 $host_query = "SELECT * FROM `user` WHERE `id` = $host_id;";
 if($iduser != 0){
-  $favorite_query = "SELECT * FROM `storage` WHERE `userid` = $iduser AND `placeid` = $id;";
+  $favorite_query = "SELECT * FROM `favouritelst` WHERE `userid` = $iduser AND `placeid` = $id;";
   foreach ($conn->query($favorite_query) as $place) {
-    $favorite = $place['favorite'];
+    $favorite = $place['favourite'];
   }
 }
 $sql_notify = "SELECT * FROM `notify` WHERE `hostid` = $iduser;";
@@ -51,8 +51,14 @@ foreach ($conn->query($host_query) as $user) {
   $host_name = $user['name'];
 }
 
-if(isset($_GET["favoritechange"])){
-  include_once("favorite-change.php");
+if(isset($_GET["favoritechange"])) {
+  if ($host_id == $iduser) {
+    echo '<script language="javascript">';
+    echo 'alert("Cannot add your own place to favorites")';
+    echo '</script>';
+  } else {
+    include_once("favorite-change.php");
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -99,7 +105,7 @@ if(isset($_GET["favoritechange"])){
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
             <?php else: ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="login.php">Sign in</a></li>
+              <li><a class="dropdown-item fw-medium" href="login.php">Sign in</a></li>
               <li><a class="dropdown-item fw-light" href="register.php">Sign up</a></li>
             <?php endif; ?>
           </ul>
@@ -114,43 +120,42 @@ if(isset($_GET["favoritechange"])){
         </div>
         <div class="col-12 col-md-1 text-center text-md-end">
           <a class="icon-link icon-link-hover link-dark" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" href="detail.php?id=<?= $id ?>&favoritechange=true">
-            <?php if (isset($favorite)){ ?>
-              <?php if($favorite == 1){ ?>
+            <?php if (isset($favorite)): ?>
+              <?php if($favorite == 1): ?>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                 </svg>
-              <?php }else{ ?>
+              <?php else: ?>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                   <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                 </svg>
-            <?php }} 
-              else {
-            ?>
+              <?php endif ?>
+            <?php else: ?>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                   <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                 </svg>
-            <?php } ?>
+            <?php endif ?>
             Save
           </a>
         </div>
       </div>
       <div class="row g-sm-2 g-md-2">
         <div class="col-12 col-md-6">
-          <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+          <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="408.5rem" style="object-fit: cover;">
         </div>
-        <div class="col-0 col-md-6">
+        <div class="col-12 col-md-6">
           <div class="row row-cols-1 row-cols-md-2 g-sm-2 g-md-2">
             <div class="col">
-              <img src="<?= $imgD1 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+              <img src="<?= $imgD1 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="200rem" style="object-fit: cover;">
             </div>
             <div class="col">
-              <img src="<?= $imgD2 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+              <img src="<?= $imgD2 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="200rem" style="object-fit: cover;">
             </div>
             <div class="col">
-              <img src="<?= $imgD3 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+              <img src="<?= $imgD3 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="200rem" style="object-fit: cover;">
             </div>
             <div class="col">
-              <img src="<?= $imgD4 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+              <img src="<?= $imgD4 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="200rem" style="object-fit: cover;">
             </div>
           </div>
         </div>
@@ -159,15 +164,10 @@ if(isset($_GET["favoritechange"])){
         <div class="col-12 col-md-7">
           <h4>Entire&nbsp;<?= $property_type ?>&nbsp;in&nbsp;<?= $street ?></h4>
           <p class="fw-light"><?= $accommodates ?>&nbsp;guests&nbsp;&#8226;&nbsp;<?= $bedrooms ?>&nbsp;bedrooms&nbsp;&#8226;&nbsp;<?= $beds ?>&nbsp;beds&nbsp;&#8226;&nbsp;<?= $bathrooms ?>&nbsp;baths</p>
-          <p class="fw-bold">
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 20 20">
-              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-            </svg>&nbsp;<?= $star ?>&nbsp;&#8226;&nbsp;<?= $objc[0]->number_of_reviews ?>&nbsp;reviews -->
-          </p>
           <hr style="border: 1px solid grey"/>
           <div class="row align-items-center">
             <div class="col-2 col-md-1">
-              <!-- <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;"> -->
+              <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;">
             </div>
             <div class="col-10 col-md-11">
               <p class="fw-bold mb-0">Hosted&nbsp;by&nbsp;<?= $host_name ?></p>
@@ -200,71 +200,73 @@ if(isset($_GET["favoritechange"])){
         </div>
         <div class="col-md-1">
         </div>
-        <div class="col-12 col-md-4">
-          <div class="card shadow mb-5 px-2 bg-white rounded" style="width: 100%;">
-            <div class="card-body">
-              <h5 class="card-title">$<?= $price ?>&nbsp;<span class="fs-6 fw-light">night</span></h5>
-              <form action="RentController.php" method="post">
-                <div class="row mb-2">
-                  <div class="col-6 pe-1">
-                    <div class="form-floating">
-                      <input type="date" min="<?= $today ?>" onchange="getchk()" class="form-control" name="checkIn" id="checkIn" value="<?= $checkin ?>">
-                      <label for="checkIn">CHECK-IN</label>
+        <?php if ($iduser != $host_id): ?>
+          <div class="col-12 col-md-4">
+            <div class="card shadow mb-5 px-2 bg-white rounded" style="width: 100%;">
+              <div class="card-body">
+                <h5 class="card-title">$<?= $price ?>&nbsp;<span class="fs-6 fw-light">night</span></h5>
+                <form action="RentController.php" method="post">
+                  <div class="row mb-2">
+                    <div class="col-6 pe-1">
+                      <div class="form-floating">
+                        <input type="date" min="<?= $today ?>" onchange="getchk()" class="form-control" name="checkIn" id="checkIn" value="<?= $checkin ?>">
+                        <label for="checkIn">CHECK-IN</label>
+                      </div>
+                    </div>
+                    <div class="col-6 ps-1">
+                      <div class="form-floating">
+                        <input type="date" class="form-control" onchange="getchk()" name="checkOut" id="checkOut" value="<?= $checkout ?>">
+                        <label for="checkOut">CHECKOUT</label>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-6 ps-1">
-                    <div class="form-floating">
-                      <input type="date" class="form-control" onchange="getchk()" name="checkOut" id="checkOut" value="<?= $checkout ?>">
-                      <label for="checkOut">CHECKOUT</label>
+                  <div class="form-floating">
+                    <select class="form-select" name="guests" id="numbGuest" aria-label="Floating label select example">
+                      <?php for ($i=1; $i <= $accommodates; $i++) {?>
+                        <option value="<?= $i ?>"><?= $i ?></option>
+                      <?php } ?>
+                    </select>
+                    <label for="numbGuest">GUESTS</label>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-8">
+                      <p class="mt-2 fw-light text-decoration-underline">$<span id="price"><?= $price ?></span> x <span id="days"></span> <span id="night"></span></p>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3 text-end">
+                      <p class="mt-2 fw-light">$<span id="total"></span></p>
                     </div>
                   </div>
-                </div>
-                <div class="form-floating">
-                  <select class="form-select" name="guests" id="numbGuest" aria-label="Floating label select example">
-                    <?php for ($i=1; $i <= $accommodates; $i++) {?>
-                      <option value="<?= $i ?>"><?= $i ?></option>
-                    <?php } ?>
-                  </select>
-                  <label for="numbGuest">GUESTS</label>
-                </div>
-                <div class="row mt-2">
-                  <div class="col-8">
-                    <p class="mt-2 fw-light text-decoration-underline">$<span id="price"><?= $price ?></span> x <span id="days"></span> <span id="night"></span></p>
+                  <div class="row">
+                    <div class="col-8">
+                      <p class="mt-2 fw-light text-decoration-underline">Cleaning Fee</p>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-3 text-end">
+                      <p class="mt-2 fw-light">$<span id="cleaning_fee"><?= $cleaning_fee ?></span></p>
+                    </div>
                   </div>
-                  <div class="col-1">
-                  </div>
-                  <div class="col-3 text-end">
-                    <p class="mt-2 fw-light">$<span id="total"></span></p>
-                  </div>
-                </div>
+                  <input type="hidden" name="iduser" value="<?= $iduser ?>">
+                  <input type="hidden" name="idplace" value="<?= $id ?>">
+                  <input type="hidden" name="price" value="<?= $price ?>">
+                  <input type="hidden" name="cleaningfee" value="<?= $cleaning_fee ?>">
+                  <input type="submit" id="checkSubmit" name="submit" class="btn btn-danger fst-light py-2 mt-2" value="Reserve" style="width: 100%">
+                </form>
+                <hr style="border: 1px solid grey"/>
                 <div class="row">
-                  <div class="col-8">
-                    <p class="mt-2 fw-light text-decoration-underline">Cleaning Fee</p>
+                  <div class="col-7">
+                    <p class="fw-bold">Total before taxes</p>
                   </div>
-                  <div class="col-1">
+                  <div class="col-5 text-end">
+                    <p class="fw-bold">$<span id="totalbf"></span></p>
                   </div>
-                  <div class="col-3 text-end">
-                    <p class="mt-2 fw-light">$<span id="cleaning_fee"><?= $cleaning_fee ?></span></p>
-                  </div>
-                </div>
-                <input type="hidden" name="iduser" value="<?= $iduser ?>">
-                <input type="hidden" name="idplace" value="<?= $id ?>">
-                <input type="hidden" name="price" value="<?= $price ?>">
-                <input type="hidden" name="cleaningfee" value="<?= $cleaning_fee ?>">
-                <input type="submit" id="checkSubmit" name="submit" class="btn btn-danger fst-light py-2 mt-2" value="Reserve" style="width: 100%">
-              </form>
-              <hr style="border: 1px solid grey"/>
-              <div class="row">
-                <div class="col-7">
-                  <p class="fw-bold">Total before taxes</p>
-                </div>
-                <div class="col-5 text-end">
-                  <p class="fw-bold">$<span id="totalbf"></span></p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        <?php endif ?>
       </div>
       <hr style="border: 1px solid grey"/>
       <h3>Where you’ll be</h3>

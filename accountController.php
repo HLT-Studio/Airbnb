@@ -50,7 +50,6 @@
     } catch (Exception $e)
     {
       $_SESSION['status'] = "This account already exists";
-      $_SESSION['alert'] = "alert-danger";
       header('Location: register.php');
       exit();
     }
@@ -83,7 +82,6 @@
             exit();
           } elseif ($user['username'] == $username && $user['password'] != $password) {
             $_SESSION['status'] = "Incorrect password";
-            $_SESSION['alert'] = "alert-danger";
             header('Location: login.php');
             exit();
           }

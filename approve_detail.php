@@ -101,21 +101,21 @@
     </div>
     <div class="row g-sm-2 g-md-2">
       <div class="col-12 col-md-6">
-        <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+        <img src="<?= $xl_picture_url ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="408.5rem" style="object-fit: cover;">
       </div>
-      <div class="col-0 col-md-6">
+      <div class="col-12 col-md-6">
         <div class="row row-cols-1 row-cols-md-2 g-sm-2 g-md-2">
           <div class="col">
-            <img src="<?= $imgD1 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+            <img src="<?= $imgD1 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="200rem" style="object-fit: cover;">
           </div>
           <div class="col">
-            <img src="<?= $imgD2 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+            <img src="<?= $imgD2 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="200rem" style="object-fit: cover;">
           </div>
           <div class="col">
-            <img src="<?= $imgD3 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+            <img src="<?= $imgD3 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="200rem" style="object-fit: cover;">
           </div>
           <div class="col">
-            <img src="<?= $imgD4 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="100%">
+            <img src="<?= $imgD4 ?>" onerror="this.onerror=null; this.src='Assets/img-not-found.jpeg'" width="100%" height="200rem" style="object-fit: cover;">
           </div>
         </div>
       </div>
@@ -124,15 +124,10 @@
       <div class="col-12 col-md-7">
         <h4>Entire&nbsp;<?= $property_type ?>&nbsp;in&nbsp;<?= $street ?></h4>
         <p class="fw-light"><?= $accommodates ?>&nbsp;guests&nbsp;&#8226;&nbsp;<?= $bedrooms ?>&nbsp;bedrooms&nbsp;&#8226;&nbsp;<?= $beds ?>&nbsp;beds&nbsp;&#8226;&nbsp;<?= $bathrooms ?>&nbsp;baths</p>
-        <p class="fw-bold">
-          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 20 20">
-            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-          </svg>&nbsp;<?= $star ?>&nbsp;&#8226;&nbsp;<?= $objc[0]->number_of_reviews ?>&nbsp;reviews -->
-        </p>
         <hr style="border: 1px solid grey"/>
         <div class="row align-items-center">
           <div class="col-2 col-md-1">
-            <!-- <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;"> -->
+            <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;">
           </div>
           <div class="col-10 col-md-11">
             <p class="fw-bold mb-0">Hosted&nbsp;by&nbsp;<?= $host_name ?></p>

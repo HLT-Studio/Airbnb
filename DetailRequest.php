@@ -33,7 +33,7 @@ foreach ($conn->query($sql) as $home) {
   $amenitiesArr = explode(', ', $amenities);
 }
 
-$sqlstorage = "Select * from storage where id = $idstorage";
+$sqlstorage = "Select * from requestpayment where id = $idstorage";
 
 foreach ($conn->query($sqlstorage) as $obj) {
   $checkin = $obj['chkIn'];
@@ -126,10 +126,10 @@ if($paid == 1){
     <hr style="border: 1px solid black"/>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-11">
+        <div class="col-12 col-md-6">
           <h3><?= $name ?></h3>
         </div>
-        <div class="col-12 col-md-1 text-center text-md-end">
+        <div class="col-12 col-md-6 text-center text-md-end">
           <h3><span class="fw-bold">Date requested: </span><?= $dateReq ?></h3>
         </div>
       </div>
@@ -159,17 +159,14 @@ if($paid == 1){
           <h4>Entire&nbsp;<?= $property_type ?>&nbsp;in&nbsp;<?= $street ?></h4>
           <p class="fw-light"><?= $accommodates ?>&nbsp;guests&nbsp;&#8226;&nbsp;<?= $bedrooms ?>&nbsp;bedrooms&nbsp;&#8226;&nbsp;<?= $beds ?>&nbsp;beds&nbsp;&#8226;&nbsp;<?= $bathrooms ?>&nbsp;baths</p>
           <p class="fw-bold">
-           <h3>Thông tin liên lạc</h3>
+           <h3>Contact information of the requester</h3>
           </p>
           <hr style="border: 1px solid grey"/>
           <div class="row align-items-center">
-            <div class="col-2 col-md-6">
-                <p><span class="fw-bold">Họ tên: </span><?= $nameuser ?></p>
+            <div class="col-12">
+                <p><span class="fw-bold">Full name: </span><?= $nameuser ?></p>
                 <p><span class="fw-bold">Phone: </span><?= $phoneuser ?></p>
                 <p><span class="fw-bold">Email: </span><?= $email ?></p>
-            </div>
-            <div class="col-10 col-md-6">
-              <p class="fw-bold mb-0">Hosted&nbsp;by&nbsp;<?= $host_name ?></p>
             </div>
           </div>
           <hr style="border: 1px solid grey"/>
@@ -202,7 +199,7 @@ if($paid == 1){
         <div class="col-12 col-md-4">
           <div class="card shadow mb-5 px-2 bg-white rounded" style="width: 100%;">
             <div class="card-body">
-              <h5 class="card-title">$<?= $price ?>&nbsp;<span class="fs-6 fw-light">night</span></h5>
+              <h5 class="card-title">$<?= number_format($price) ?>&nbsp;<span class="fs-6 fw-light">night</span></h5>
               <form action="RentController.php" method="post">
                 <input type="hidden" name="hostid" value="<?= $host_id ?>">
                 <input type="hidden" name="idstorage" value="<?= $idstorage ?>">
@@ -225,23 +222,11 @@ if($paid == 1){
                   <label for="numbGuest">GUESTS</label>
                 </div>
                 <div class="row mt-2">
-                  <div class="col-8">
-                    <p class="mt-2 fw-light text-decoration-underline">$<span id="price"><?= $price ?></span> x <span id="days"></span> <span id="night"></span></p>
+                  <div class="col-6">
+                    <p class="mt-2 fw-light text-decoration-underline">total</p>
                   </div>
-                  <div class="col-1">
-                  </div>
-                  <div class="col-3 text-end">
-                    <p class="mt-2 fw-light">$total</span></p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-8">
-                    <p class="mt-2 fw-light text-decoration-underline">Cleaning Fee</p>
-                  </div>
-                  <div class="col-1">
-                  </div>
-                  <div class="col-3 text-end">
-                    <p class="mt-2 fw-light">$<span id="cleaning_fee"><?= $cleaning_fee ?></span></p>
+                  <div class="col-6 text-end">
+                    <p class="mt-2 fw-light">$<?= number_format($total) ?></p>
                   </div>
                 </div>
                 <div class="form-check <?= $classhidden ?>">

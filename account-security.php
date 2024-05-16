@@ -1,7 +1,11 @@
 <?php
 session_start();
-$uid = $_SESSION['user_id'];
 include_once("DBconnect.php");
+if (empty($_SESSION['user_id'])) {
+  header('Location: login.php');
+  exit();
+}
+$uid = $_SESSION['user_id'];
 $sql = "SELECT * FROM `user` WHERE `id` = $uid;";
 foreach ($conn->query($sql) as $user ) {
   $name = $user['name'];

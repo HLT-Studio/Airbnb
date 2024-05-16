@@ -18,10 +18,10 @@
         $interval = $date1->diff($date2);
         $total = ($interval->days * $price) + $cleanningfee;
 
-        $sql = "Select * from storage where userid = $iduser and placeid = $idplace";
+        $sql = "Select * from requestpayment where userid = $iduser and placeid = $idplace";
         $getdata = $conn->query($sql);
         if($getdata->rowCount() == 0){
-            $insert = "INSERT INTO `storage` (`id`, `userid`, `placeid`, `rentReq`, `favorite`, `chkIn`, `chkOut`, `guests`, `total`, `dateReq`, `paid`) VALUES (NULL, '$iduser', '$idplace', '1', '0', '$chkIn', '$chkOut', '$guests', '$total', '$dateReq', '0')";
+            $insert = "INSERT INTO `requestpayment` (`id`, `userid`, `placeid`, `rentReq`, `chkIn`, `chkOut`, `guests`, `total`, `dateReq`, `paid`) VALUES (NULL, '$iduser', '$idplace', '1', '$chkIn', '$chkOut', '$guests', '$total', '$dateReq', '0')";
             $conn->exec($insert);
             header("Location: detail.php?id=$idplace");
             exit();
@@ -29,14 +29,14 @@
         else{
             foreach($getdata as $obj){
                 if($obj["paid"] == 1){
-                    $insert2 = "INSERT INTO `storage` (`id`, `userid`, `placeid`, `rentReq`, `favorite`, `chkIn`, `chkOut`, `guests`, `total`, `dateReq`, `paid`) VALUES (NULL, '$iduser', '$idplace', '1', '0', '$chkIn', '$chkOut', '$guests', '$total', '$dateReq', '0')";
+                    $insert2 = "INSERT INTO `requestpayment` (`id`, `userid`, `placeid`, `rentReq`, `chkIn`, `chkOut`, `guests`, `total`, `dateReq`, `paid`) VALUES (NULL, '$iduser', '$idplace', '1', '$chkIn', '$chkOut', '$guests', '$total', '$dateReq', '0')";
                     $conn->exec($insert2);
                     header("Location: detail.php?id=$idplace");
                     exit();
                 }
                 else{
                     $id = $obj["id"];
-                    $update = "UPDATE `storage` SET `chkIn` = '$chkIn', `chkOut` = '$chkOut', `guests` = '$guests', `total` = '$total', `dateReq` = '$dateReq' WHERE `storage`.`id` = $id";
+                    $update = "UPDATE `requestpayment` SET `chkIn` = '$chkIn', `chkOut` = '$chkOut', `guests` = '$guests', `total` = '$total', `dateReq` = '$dateReq' WHERE `requestpayment`.`id` = $id";
                     $conn->exec($update);
                     header("Location: detail.php?id=$idplace");
                     exit();
@@ -49,14 +49,14 @@
         $hostid = $_POST["hostid"];
         $idstorage = $_POST["idstorage"];
         if($response == "accept"){
-            $sqlupdate = "UPDATE `storage` SET `paid` = '1' WHERE `storage`.`id` = $idstorage";
+            $sqlupdate = "UPDATE `requestpayment` SET `paid` = '1' WHERE `requestpayment`.`id` = $idstorage";
             $conn->exec($sqlupdate);
             $_SESSION['user_id'] = $hostid;
             header("Location: PlaceList_waitResponse.php");
             exit();
         }
         else{
-            $sqldel = "DELETE FROM `storage` WHERE `storage`.`id` = $idstorage";
+            $sqldel = "DELETE FROM `requestpayment` WHERE `requestpayment`.`id` = $idstorage";
             $conn->exec($sqldel);
             $_SESSION['user_id'] = $hostid;
             header("Location: PlaceList_waitResponse.php");

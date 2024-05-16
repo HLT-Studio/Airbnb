@@ -2,6 +2,10 @@
 // session_start();
 include_once("DBconnect.php");
 include_once("pagination.php");
+if (empty($_SESSION['user_id'])) {
+  header('Location: login.php');
+  exit();
+}
 $id = (int)$_SESSION['user_id'];
 $amenities = array("Wifi", "Kitchen", "Washer", "Air conditioning", "Heating", "TV", "Hair dryer", "Iron", "Pool", "Smoking allowed");
 $result = "SELECT * FROM `place` WHERE `host_id` = $id ORDER BY `id` ASC LIMIT $position, $display;";
@@ -52,7 +56,6 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
               <li><a class="dropdown-item fw-medium" href="wishlist.php">Wishlists</a></li>
               <li><a class="dropdown-item fw-medium" href="PlaceList_waitResponse.php">Request list</a></li>
               <li><a class="dropdown-item fw-medium" href="BookingList.php">Booking list</a></li>
-              <li><a class="dropdown-item fw-medium" href="manage-home.php">Airbnb your home</a></li>
               <?php if ($total_rows != 0): ?>
                 <li><a class="dropdown-item fw-medium" href="notify.php">Notify<span class="ms-2 text-danger fw-medium">&#8226;</span></a></li>
               <?php else: ?>
@@ -62,9 +65,6 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
               <li><a class="dropdown-item fw-light" href="account-setting.php">Account</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item fw-light" href="logout.php">Log out</a></li>
-            <?php else: ?>
-              <li><a class="dropdown-item fw-bold fw-light" href="login.php">Sign in</a></li>
-              <li><a class="dropdown-item fw-light" href="register.php">Sign up</a></li>
             <?php endif; ?>
           </ul>
         </div>
@@ -241,26 +241,20 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
                           <p class="fw-light">You'll need photo to get started. You can add more or make changes later.</p>
                         </div>
                         <div class="col-12">
-                          <div class="form-floating">
-                            
-                            <input class="form-control" type="file" name="xl_picture_url" id="xl_picture_url" onchange="imageUploaded1()">
-                            <input type="hidden" name="ImageName1" id="ImageName1" value="">
-                            
-                            
-                            <input class="form-control" type="file" name="imgD1" id="imgD1" onchange="imageUploaded2()">
-                            <input type="hidden" name="ImageName2" id="ImageName2" value="">
-                            
-                            
-                            <input class="form-control" type="file" name="imgD2" id="imgD2" onchange="imageUploaded3()">                           
-                            <input type="hidden" name="ImageName3" id="ImageName3" value="">
-                            
-                            
-                            <input class="form-control" type="file" name="imgD3" id="imgD3" onchange="imageUploaded4()">                           
-                            <input type="hidden" name="ImageName4" id="ImageName4" value="">
-                            
-                            <input class="form-control" type="file" name="imgD4" id="imgD4" onchange="imageUploaded5()">
-                            <input type="hidden" name="ImageName5" id="ImageName5" value="">
-                          </div>
+                          <input class="form-control" type="file" name="xl_picture_url" id="xl_picture_url" onchange="imageUploaded1()">
+                          <input type="hidden" name="ImageName1" id="ImageName1" value="">
+
+                          <input class="form-control my-2" type="file" name="imgD1" id="imgD1" onchange="imageUploaded2()">
+                          <input type="hidden" name="ImageName2" id="ImageName2" value="">
+
+                          <input class="form-control" type="file" name="imgD2" id="imgD2" onchange="imageUploaded3()">
+                          <input type="hidden" name="ImageName3" id="ImageName3" value="">
+
+                          <input class="form-control my-2" type="file" name="imgD3" id="imgD3" onchange="imageUploaded4()">
+                          <input type="hidden" name="ImageName4" id="ImageName4" value="">
+
+                          <input class="form-control" type="file" name="imgD4" id="imgD4" onchange="imageUploaded5()">
+                          <input type="hidden" name="ImageName5" id="ImageName5" value="">
                         </div>
                       </div>
                       <hr style="border: 1px solid gray"/>
@@ -403,7 +397,7 @@ function imageUploaded1() {
             var srcData = fileLoadedEvent.target.result; // <--- data: base64
 
             document.getElementById("ImageName1").src = srcData;
-            
+
             document.getElementById("ImageName1").value = fileReader.result;
         }
         fileReader.readAsDataURL(fileToLoad);
@@ -421,7 +415,7 @@ function imageUploaded2() {
             var srcData = fileLoadedEvent.target.result; // <--- data: base64
 
             document.getElementById("ImageName2").src = srcData;
-            
+
             document.getElementById("ImageName2").value = fileReader.result;
         }
         fileReader.readAsDataURL(fileToLoad);
@@ -438,7 +432,7 @@ function imageUploaded3() {
             var srcData = fileLoadedEvent.target.result; // <--- data: base64
 
             document.getElementById("ImageName3").src = srcData;
-            
+
             document.getElementById("ImageName3").value = fileReader.result;
         }
         fileReader.readAsDataURL(fileToLoad);
@@ -455,7 +449,7 @@ function imageUploaded4() {
             var srcData = fileLoadedEvent.target.result; // <--- data: base64
 
             document.getElementById("ImageName4").src = srcData;
-            
+
             document.getElementById("ImageName4").value = fileReader.result;
         }
         fileReader.readAsDataURL(fileToLoad);
@@ -472,7 +466,7 @@ function imageUploaded5() {
             var srcData = fileLoadedEvent.target.result; // <--- data: base64
 
             document.getElementById("ImageName5").src = srcData;
-            
+
             document.getElementById("ImageName5").value = fileReader.result;
         }
         fileReader.readAsDataURL(fileToLoad);
