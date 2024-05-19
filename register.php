@@ -8,6 +8,7 @@
     <link rel="icon" type="image/svg+xml" sizes="any" href="assets/airbnb-1.svg">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
@@ -31,7 +32,7 @@
 
                 <div class="d-flex flex-row align-items-center mb-4">
                   <i class="fas fa-user fa-lg me-3 mb-4 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
+                  <div class="form-floating flex-fill mb-0">
                     <input type="text" id="full_name_value" name="full_name_value" class="form-control" required>
                     <label class="form-label" for="full_name_value">Your Name</label>
                     <span id="namevld" class="text-danger"></span>
@@ -40,7 +41,7 @@
 
                 <div class="d-flex flex-row align-items-center mb-4">
                   <i class="fas fa-user fa-lg me-3 mb-4 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
+                  <div class="form-floating flex-fill mb-0">
                     <input type="text" id="username" name="username" class="form-control" required>
                     <label class="form-label" for="username">User name</label>
                     <span id="usernamevld" class="text-danger"></span>
@@ -49,7 +50,7 @@
 
                 <div class="d-flex flex-row align-items-center mb-4">
                 <i class="fa fa-phone fa-lg me-3 mb-4 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
+                  <div class="form-floating flex-fill mb-0">
                     <input type="number" id="phone" name="phone" class="form-control" minlength="10" maxlength="10" required>
                     <label class="form-label" for="phone">Phone number</label>
                     <span id="phonevld" class="text-danger"></span>
@@ -58,7 +59,7 @@
 
                 <div class="d-flex flex-row align-items-center mb-4">
                   <i class="fas fa-envelope fa-lg me-3 mb-4 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
+                  <div class="form-floating flex-fill mb-0">
                     <input type="email" id="email_value" name="email_value" class="form-control" required>
                     <label class="form-label" for="email_value">Your Email</label>
                     <span id="emailvld" class="text-danger"></span>
@@ -67,23 +68,25 @@
 
                 <div class="d-flex flex-row align-items-center mb-4">
                   <i class="fas fa-lock fa-lg me-3 mb-4 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
+                  <div class="form-floating flex-fill mb-0">
                     <input type="password" id="password_value" name="password_value" class="form-control" required>
+                    <i class="bi bi-eye-slash position-absolute bottom-0 end-0 me-3 mb-3" id="togglePassword" style="cursor: pointer !important;"></i>
                     <label class="form-label" for="password_value">Password</label>
-                    <span id="passvld" class="text-danger"></span>
                   </div>
                 </div>
+                <p id="passvld" class="ps-5 text-danger"></p>
 
-                <div class="d-flex flex-row align-items-center mb-4">
+                <div class="d-flex flex-row align-items-center">
                   <i class="fas fa-key fa-lg me-3 mb-4 fa-fw"></i>
-                  <div class="form-outline flex-fill mb-0">
+                  <div class="form-floating flex-fill mb-0">
                     <input type="password" id="repassword_value" name="repassword_value" class="form-control" required>
+                    <i class="bi bi-eye-slash position-absolute bottom-0 end-0 me-3 mb-3" id="toggleRePassword" style="cursor: pointer !important;"></i>
                     <label class="form-label" for="repassword_value">Repeat your password</label>
-                    <span id="repassvld" class="text-danger"></span>
                   </div>
                 </div>
+                <p id="repassvld" class="ps-5 text-danger"></p>
 
-                <div class="form-check d-flex justify-content-center mb-5">
+                <div class="form-check d-flex justify-content-center mt-4 mb-5">
                   <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" required>
                   <label class="form-check-label" for="form2Example3">
                     I agree all statements in <a href="#">Terms of service</a>
@@ -126,6 +129,32 @@
     document.getElementById("repassvld").hidden = true;
     document.getElementById("phonevld").hidden = true;
 
+    const togglePassword = document.querySelector('#togglePassword');
+    const toggleRePassword = document.querySelector('#toggleRePassword');
+
+    const password = document.querySelector('#password_value');
+    const repassword = document.querySelector('#repassword_value');
+
+    togglePassword.addEventListener('click', () => {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      if (type == 'password') {
+        document.getElementById("togglePassword").className = "bi bi-eye-slash position-absolute bottom-0 end-0 me-3 mb-3";
+      } else {
+        document.getElementById("togglePassword").className = "bi bi-eye position-absolute bottom-0 end-0 me-3 mb-3";
+      }
+    });
+
+    toggleRePassword.addEventListener('click', () => {
+      const type = repassword.getAttribute('type') === 'password' ? 'text' : 'password';
+      repassword.setAttribute('type', type);
+      if (type == 'password') {
+        document.getElementById("toggleRePassword").className = "bi bi-eye-slash position-absolute bottom-0 end-0 me-3 mb-3";
+      } else {
+        document.getElementById("toggleRePassword").className = "bi bi-eye position-absolute bottom-0 end-0 me-3 mb-3";
+      }
+    });
+
     document.getElementById("register_btn").addEventListener('click', (e) => {
       document.getElementById("namevld").hidden = true;
       document.getElementById("usernamevld").hidden = true;
@@ -143,7 +172,7 @@ function validUserName() {
     var name = document.getElementById("username").value;
     var regName = /^[a-zA-Z0-9]+$/;
     if(name.length < 10)
-    {   
+    {
         document.getElementById("usernamevld").hidden = false;
         document.getElementById("usernamevld").innerHTML = "*Tối thiểu 10 ký tự";
         return false;
