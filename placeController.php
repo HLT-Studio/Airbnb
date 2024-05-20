@@ -20,8 +20,8 @@
         $city = $_POST["city"];
         $state = $_POST["state"];
         $country = $_POST["country"];
-        $latitude = $_POST["latitude"];
-        $longtitude = $_POST["longtitude"];
+        $latitude = (double)$_POST["latitude"];
+        $longtitude = (double)$_POST["longtitude"];
         $property_type = $_POST["property_type"];
         $accommodates = $_POST["accommodates"];
         $bathrooms = $_POST["bathrooms"];
@@ -31,20 +31,18 @@
         $price = (int)$_POST["price"];
         $cleaning_fee = (int)$_POST["cleaning_fee"];
         $calendar_updated = date("d/m/Y");
-        // $number_of_reviews = 0;
-        $review_scores_rating = 0;
         $approve = 0;
-    
+
         for($i=0; $i<sizeof($amenitiesArr); $i++){
             if(isset($_POST["ch".$i])){
                 $amenities .= $_POST["ch".$i] . ", ";
             }
         }
         $amenities = rtrim($amenities, ', ');
-    
-        $sqltest = "INSERT INTO `place` (`id`, `name`, `summary`, `description`, `notes`, `transit`, `xl_picture_url`, `imgD1`, `imgD2`, `imgD3`, `imgD4`, `street`, `city`, `state`, `country`, `latitude`, `longitude`, `property_type`, `accommodates`, `bathrooms`, `bedrooms`, `beds`, `amenities`, `price`, `cleaning_fee`, `calendar_updated`, `host_id`, `approve`) 
+
+        $sqltest = "INSERT INTO `place` (`id`, `name`, `summary`, `description`, `notes`, `transit`, `xl_picture_url`, `imgD1`, `imgD2`, `imgD3`, `imgD4`, `street`, `city`, `state`, `country`, `latitude`, `longitude`, `property_type`, `accommodates`, `bathrooms`, `bedrooms`, `beds`, `amenities`, `price`, `cleaning_fee`, `calendar_updated`, `host_id`, `approve`)
         VALUES (NULL, '$name', '$summary', '$description', '$notes', '$transit', '$xl_picture_url', '$ImageName2', '$ImageName3', '$ImageName4', '$ImageName5', '$street', '$city', '$state', '$country', '$latitude', '$longtitude', '$property_type', '$accommodates', '$bathrooms', '$bedrooms', '$beds', '$amenities', '$price', '$cleaning_fee', '$calendar_updated', '$host_id', '$approve')";
-    
+
         $conn->exec($sqltest);
         header('Location: manage-home.php');
         exit();

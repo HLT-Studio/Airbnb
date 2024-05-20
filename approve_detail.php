@@ -127,7 +127,7 @@
         <hr style="border: 1px solid grey"/>
         <div class="row align-items-center">
           <div class="col-2 col-md-1">
-            <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;">
+            <img src="" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;">
           </div>
           <div class="col-10 col-md-11">
             <p class="fw-bold mb-0">Hosted&nbsp;by&nbsp;<?= $host_name ?></p>
