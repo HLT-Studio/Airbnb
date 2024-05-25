@@ -112,7 +112,7 @@ $lstplace = $conn->query($sql);
                 </div>
               </div>
               <p class="text-secondary mt-2">Added&nbsp;<?= $element['calendar_updated'] ?></p>
-              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= $element['price'] ?></span>&nbsp;night</p>
+              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= number_format($element['price']) ?></span>&nbsp;night</p>
             </a>
           </div>
         <?php endforeach; ?>

@@ -40,6 +40,8 @@
       $host_id = $home['host_id'];
       $price = $home['price'];
       $cleaning_fee = $home['cleaning_fee'];
+      $transit = $home['transit'];
+      $notes = $home['notes'];
       $amenitiesArr = explode(', ', $amenities);
       $approve = $home['approve'];
     }
@@ -147,7 +149,7 @@
                 <h3 class="fw-bold">About this space</h3>
                 <p class="fw-light text-break"><?= $description ?></p>
                 <p class="fw-bold">Other things to note</p>
-                <p class="fw-light text-break"><?= $objc[0]->notes ?? 'nothing...' ?></p>
+                <p class="fw-light text-break"><?= $notes ?? 'nothing...' ?></p>
               </div>
             </div>
           </div>

@@ -34,6 +34,8 @@ foreach ($conn->query($sql) as $home) {
   $host_id = $home['host_id'];
   $price = $home['price'];
   $cleaning_fee = $home['cleaning_fee'];
+  $transit = $home['transit'];
+  $notes = $home['notes'];
   $amenitiesArr = explode(', ', $amenities);
 }
 $host_query = "SELECT * FROM `user` WHERE `id` = $host_id;";
@@ -167,7 +169,7 @@ if(isset($_GET["favoritechange"])) {
           <hr style="border: 1px solid grey"/>
           <div class="row align-items-center">
             <div class="col-2 col-md-1">
-              <img src="<?= $objc[0]->host_picture_url ?>" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;">
+              <img src="" onerror="this.onerror=null; this.src='assets/default-avt.png'" width="50" height="50" class="rounded-circle" style="object-fit: cover;">
             </div>
             <div class="col-10 col-md-11">
               <p class="fw-bold mb-0">Hosted&nbsp;by&nbsp;<?= $host_name ?></p>
@@ -187,7 +189,7 @@ if(isset($_GET["favoritechange"])) {
                   <h3 class="fw-bold">About this space</h3>
                   <p class="fw-light text-break"><?= $description ?></p>
                   <p class="fw-bold">Other things to note</p>
-                  <p class="fw-light text-break"><?= $objc[0]->notes ?? 'nothing...' ?></p>
+                  <p class="fw-light text-break"><?= $notes ?? 'nothing...' ?></p>
                 </div>
               </div>
             </div>
