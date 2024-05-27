@@ -189,25 +189,25 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <input class="form-control" type="number" min="1" name="accommodates" id="accommodates" placeholder="accommodates">
+                            <input class="form-control" type="number" min="1" step="1" name="accommodates" id="accommodates" placeholder="accommodates">
                             <label for="accommodates">Guests</label>
                           </div>
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <input class="form-control" type="number" min="1" name="bedrooms" id="bedrooms" placeholder="bedrooms">
+                            <input class="form-control" type="number" min="1" step="1" name="bedrooms" id="bedrooms" placeholder="bedrooms">
                             <label for="bedrooms">Bedrooms</label>
                           </div>
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <input class="form-control" type="number" min="1" name="beds" id="beds" placeholder="beds">
+                            <input class="form-control" type="number" min="1" step="1" name="beds" id="beds" placeholder="beds">
                             <label for="beds">Beds</label>
                           </div>
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <input class="form-control" type="number" min="1" name="bathrooms" id="bathrooms" placeholder="bathrooms">
+                            <input class="form-control" type="number" min="1" step="1" name="bathrooms" id="bathrooms" placeholder="bathrooms">
                             <label for="bathrooms">Bathrooms</label>
                           </div>
                         </div>
@@ -319,13 +319,13 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <input class="form-control" type="number" min="1" name="price" id="price" placeholder="price">
+                            <input class="form-control" type="number" min="1" step="1" name="price" id="price" placeholder="price">
                             <label for="price">Price</label>
                           </div>
                         </div>
                         <div class="col-12">
                           <div class="form-floating">
-                            <input class="form-control" type="number" min="1" name="cleaning_fee" id="cleaning_fee" placeholder="cleaning_fee">
+                            <input class="form-control" type="number" min="1" step="1" name="cleaning_fee" id="cleaning_fee" placeholder="cleaning_fee">
                             <label for="cleaning_fee">Cleaning Fee</label>
                           </div>
                         </div>
