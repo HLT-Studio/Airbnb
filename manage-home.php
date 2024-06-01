@@ -75,7 +75,7 @@ $previous = ($index - 1) < 1 ? 1 : ($index - 1);
       <form action="placeController.php" method="post">
         <div class="row">
           <div class="col-8">
-            <h3 class="mb-0">Your home</h3>
+            <h3 class="mb-0 mt-2">Your home</h3>
           </div>
           <div class="col-4 text-center text-md-end">
             <button type="button" name="btn-search-home" class="btn btn-light p-2 rounded-circle">

@@ -84,7 +84,7 @@ $total_rows = $records->rowCount();
               <img src="<?= $img ?>" onerror="this.onerror=null; this.src='assets/img-not-found.jpeg'" class="rounded" width="100%" height="200px" style="object-fit: cover;">
               <div class="row mb-0">
                 <div class="col-8">
-                  <p class="mt-2 fw-bold mb-0"><?= $name ?></p>
+                  <p class="mt-2 fw-bold mb-0" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><?= $name ?></p>
                 </div>
                 <div class="col-4 text-end">
                   <p class="mt-2 fw-light mb-0">

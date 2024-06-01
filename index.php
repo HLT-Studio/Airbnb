@@ -210,8 +210,8 @@ $allplace = $conn->query($sql);
                   </p>
                 </div>
               </div>
-              <p class="text-secondary mt-2">Added&nbsp;<?= $element['calendar_updated'] ?></p>
-              <p class="fw-light"><span class="fw-bold">$&nbsp;<?= number_format($element['price']) ?></span>&nbsp;night</p>
+              <p class="fw-light text-secondary mt-2 mb-0">Added&nbsp;<?= $element['calendar_updated'] ?></p>
+              <p class="fw-light mt-2"><span class="fw-bold">$&nbsp;<?= number_format($element['price']) ?></span>&nbsp;night</p>
             </a>
           </div>
         <?php endforeach; ?>
