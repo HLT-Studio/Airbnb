@@ -22,11 +22,11 @@
       $mail->Password   = 'xehetooefkfbfrtn';                               //SMTP password
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
       $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-  
+
       //Recipients
       $mail->setFrom('airbnbHLT@gmail.com', 'DEMO WEB');
       $mail->addAddress($eemail);     //Add a recipient
-     
+
       //Content
       $mail->isHTML(true);                                  //Set email format to HTML
       $mail->Subject = 'Password reset link from DEMO WEB';
@@ -34,7 +34,7 @@
        Click the link below: <br>
        <a href='http://localhost/airbnb/updateforgotpassword.php?email=$eemail&reset_token=$rstoken'>Reset password</a>
       ";
-  
+
       $mail->send();
       return true;
   } catch (Exception $e) {
@@ -231,7 +231,7 @@
         $query = "UPDATE `user` SET `resettoken`='$reset_token',`resettokenexpire`='$date' WHERE `email` = '$emailtemp'";
         $conn->exec($query);
         sendMail($emailtemp, $reset_token);
-        echo "<script> 
+        echo "<script>
           alert('Password reset link sent to email');
           window.location.href='index.php';
         </script>";
@@ -250,12 +250,12 @@
   if(isset($_POST["resetforgotpass"])){
     $passwordupdate = $_POST["password_value"];
     $emailResetPass = $_POST["email"];
-    $updatepass = "UPDATE `user` SET `password`='$passwordupdate', `resettoken`=NULL,`resettokenexpire`=NULL WHERE email = '$emailResetPass'";
+    $updatepass = "UPDATE `user` SET `password`='$passwordupdate', `resettoken`= '',`resettokenexpire`= '' WHERE `email` = '$emailResetPass'";
     $conn->exec($updatepass);
-    echo "<script> 
+    echo "<script>
     alert('Password update successfully !');
     window.location.href='login.php';
-  </script>"; 
+  </script>";
   }
 
 ?>
