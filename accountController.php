@@ -2,6 +2,45 @@
   session_start();
   include_once("DBconnect.php");
 
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\SMTP;
+  // use PHPMailer\PHPMailer\Exception;
+
+  function sendMail($eemail, $rstoken){
+    require('PHPMailer/PHPMailer.php');
+    require('PHPMailer/SMTP.php');
+    require('PHPMailer/Exception.php');
+
+    $mail = new PHPMailer(true);
+
+    try {
+      //Server settings
+      $mail->isSMTP();                                            //Send using SMTP
+      $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+      $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+      $mail->Username   = 'airbnbHLT@gmail.com';                     //SMTP username
+      $mail->Password   = 'xehetooefkfbfrtn';                               //SMTP password
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+      $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+  
+      //Recipients
+      $mail->setFrom('airbnbHLT@gmail.com', 'DEMO WEB');
+      $mail->addAddress($eemail);     //Add a recipient
+     
+      //Content
+      $mail->isHTML(true);                                  //Set email format to HTML
+      $mail->Subject = 'Password reset link from DEMO WEB';
+      $mail->Body    = "We got a request from you to reset your password! <br>
+       Click the link below: <br>
+       <a href='http://localhost/airbnb/updateforgotpassword.php?email=$eemail&reset_token=$rstoken'>Reset password</a>
+      ";
+  
+      $mail->send();
+      return true;
+  } catch (Exception $e) {
+      return false;
+  }
+  }
 
   //Controller xử lý khi tạo tài khoản
   if(isset($_POST['register_btn']))
@@ -177,6 +216,46 @@
       $_SESSION['text_color'] = "text-danger";
       header('Location: account-security.php');
     }
+  }
+
+  // forgot password
+  if(isset($_POST["forgotpass"])){
+    $emailtemp = $_POST["email"];
+    $sqlfindmail = "SELECT * FROM `user` WHERE `email` = '$emailtemp'";
+    try{
+      $result = $conn->query($sqlfindmail);
+      if($result->rowCount() > 0){
+        $reset_token = bin2hex(random_bytes(16));
+        date_default_timezone_set('Asia/kolkata');
+        $date=date("Y-m-d");
+        $query = "UPDATE `user` SET `resettoken`='$reset_token',`resettokenexpire`='$date' WHERE `email` = '$emailtemp'";
+        $conn->exec($query);
+        sendMail($emailtemp, $reset_token);
+        echo "<script> 
+          alert('Password reset link sent to email');
+          window.location.href='index.php';
+        </script>";
+      }
+      else{
+        throw new Exception("Invalid email !!!");
+      }
+    }
+    catch(Exception $e){
+      $_SESSION['email_alert'] = $e->getMessage();
+      $_SESSION['colortext'] = "text-danger";
+      header('Location: forgotpassword.php');
+    }
+  }
+
+  if(isset($_POST["resetforgotpass"])){
+    $passwordupdate = $_POST["password_value"];
+    $emailResetPass = $_POST["email"];
+    $updatepass = "UPDATE `user` SET `password`='$passwordupdate', `resettoken`=NULL,`resettokenexpire`=NULL WHERE email = '$emailResetPass'";
+    $conn->exec($updatepass);
+    echo "<script> 
+    alert('Password update successfully !');
+    window.location.href='login.php';
+  </script>"; 
   }
 
 ?>
