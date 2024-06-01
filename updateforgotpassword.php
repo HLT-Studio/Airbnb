@@ -1,5 +1,5 @@
-<?php 
-    session_start(); 
+<?php
+    session_start();
     include_once("DBconnect.php");
 ?>
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
         <div class="col-lg-12 col-xl-11">
           <div class="row justify-content-center">
             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-              
+
               <?php
                 if(isset($_GET["email"]) && isset($_GET["reset_token"])){
                     $email = $_GET["email"];
@@ -38,9 +38,9 @@
                     $query = "SELECT * FROM `user` WHERE email = '$email' and resettoken = '$resettoken' and resettokenexpire = '$date'";
                     $result = $conn->query($query);
                     if($result->rowCount() > 0){
-              ?> 
+              ?>
               <form class="mx-1 mx-md-4" action="accountController.php" method="post">
-                  <input type="hidden" value="<?= $email ?>" name="email"> 
+                  <input type="hidden" value="<?= $email ?>" name="email">
               <div class="d-flex flex-row align-items-center mb-4">
                   <i class="fas fa-lock fa-lg me-3 mb-4 fa-fw"></i>
                   <div class="form-floating flex-fill mb-0">
@@ -62,16 +62,16 @@
                 <p id="repassvld" class="ps-5 text-danger"></p>
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit" name="resetforgotpass" id="resetforgotpass" class="btn btn-primary btn-lg">Update password</button>
+                    <button type="submit" name="resetforgotpass" id="resetforgotpass" class="btn btn-primary btn-lg mt-2">Update password</button>
                     </div>
-            
+
                 </form>
                  <?php }
                 else{
-                    echo "<script> 
+                    echo "<script>
                         alert('Invalid or Expire link');
                         window.location.href='index.php';
-                        </script>";   
+                        </script>";
                 }
                 }
                 ?>

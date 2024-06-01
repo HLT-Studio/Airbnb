@@ -21,11 +21,11 @@
       $mail->Password   = 'xehetooefkfbfrtn';                               //SMTP password
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
       $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-  
+
       //Recipients
       $mail->setFrom('airbnbHLT@gmail.com', 'DEMO WEB');
       $mail->addAddress($eemail);     //Add a recipient
-     
+
       //Content
       $mail->isHTML(true);                                  //Set email format to HTML
       $mail->Subject = 'Purchase complete for '.$nameplace;
@@ -37,7 +37,7 @@
        <h4>Date purchase: <span>$datepur</span></h4>
        <h4>Total: <span>$tt$</span></h4>
        ";
-  
+
       $mail->send();
       return true;
   } catch (Exception $e) {
@@ -103,18 +103,18 @@
             foreach($result as $obj){
                 $userRentid = $obj['userid'];
                 $placeid = $obj['placeid'];
-                $totalprice = $obj['placeid'];
+                $totalprice = $obj['total'];
                 $chkin = $obj['chkIn'];
                 $chkout = $obj['chkOut'];
             }
-            
+
             $sqlfinduserent = "Select * from `user` Where `user`.`id` = $userRentid";
             $usersql = $conn->query($sqlfinduserent);
             $sqlfindplace = "Select * from `place` Where `place`.`id` = $placeid";
             $placesql = $conn->query($sqlfindplace);
             $sqlfindhost = "Select * from `user` Where `user`.`id` = $hostid";
             $hostsql = $conn->query($sqlfindhost);
-            
+
             foreach($usersql as $obj){
                 $userRentEmail = $obj['email'];
             }
