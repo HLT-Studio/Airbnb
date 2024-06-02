@@ -277,6 +277,9 @@ if(isset($_GET["favoritechange"])) {
       <p class="fw-light text-break"><?= $transit ?? 'nothing...' ?></p>
     </div>
   </body>
+  <footer>
+    <?php include_once 'footer.php'; ?>
+  </footer>
 </html>
 <script>
   function getchk(){

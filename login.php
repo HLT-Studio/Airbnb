@@ -8,6 +8,7 @@
     <link rel="icon" type="image/svg+xml" sizes="any" href="assets/airbnb-1.svg">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
@@ -47,6 +48,7 @@
                     <div class="col-12">
                       <div class="form-floating mb-3">
                         <input type="password" class="form-control border-0 border-bottom rounded-0" name="password" id="password" value="" placeholder="Password" required>
+                        <i class="bi bi-eye-slash position-absolute bottom-0 end-0 me-3 mb-3" id="togglePassword" style="cursor: pointer !important;"></i>
                         <label for="password" class="form-label">Password</label>
                       </div>
                     </div>
@@ -124,3 +126,16 @@
     </section>
   </body>
 </html>
+<script>
+  const password = document.querySelector('#password');
+  const togglePassword = document.querySelector('#togglePassword');
+  togglePassword.addEventListener('click', () => {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    if (type == 'password') {
+      document.getElementById("togglePassword").className = "bi bi-eye-slash position-absolute bottom-0 end-0 me-3 mb-3";
+    } else {
+      document.getElementById("togglePassword").className = "bi bi-eye position-absolute bottom-0 end-0 me-3 mb-3";
+    }
+  });
+</script>
